@@ -10,12 +10,15 @@ def parse_arguments():
     """Parse_arguments parsing args no parameter."""
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--datafile", help="""TXT file containing map of
-        labyrinth""")
+        labyrinth""", default="default.txt")
     return parser.parse_args()
 
 def main():
     """Main entry no parameter."""
     args = parse_arguments()
+
+
+
     return args[0]
 
 if __name__ == "__main__":
