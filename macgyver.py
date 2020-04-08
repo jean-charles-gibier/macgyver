@@ -16,10 +16,8 @@ def parse_arguments():
 def main():
     """Main entry no parameter."""
     args = parse_arguments()
-
-
-
-    return args[0]
+    map_name = args.datafile
+    return
 
 if __name__ == "__main__":
     main()
