@@ -4,8 +4,12 @@
 """This script starts mc Guyver labyrinth parameter is :  file_name (discribing map)."""
 
 import argparse
+import constant
+import os
 
-# test 4 pylint checks
+from mapdescription import MapDescription
+
+
 def parse_arguments():
     """Parse_arguments parsing args no parameter."""
     parser = argparse.ArgumentParser()
@@ -17,6 +21,11 @@ def main():
     """Main entry no parameter."""
     args = parse_arguments()
     map_name = args.datafile
+    map_path = constant.RESOURCE_PATH
+    local_path = os.path.dirname(os.path.realpath(__file__))
+    data_file = os.path.join( local_path, map_path, map_name)
+    map_description = MapDescription(data_file)
+    print(map_description.path_name)
     return
 
 if __name__ == "__main__":
