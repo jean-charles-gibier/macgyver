@@ -6,6 +6,8 @@ class MapDescription :
     _path_name = ""
     # text par defaut
     _file_type = "text"
+    # text representation of the map
+    _file_map = []
 
     def __init__(self, path_name):
         """ init test if path name exists """
@@ -18,6 +20,11 @@ class MapDescription :
         """ getter path_name """
         return self._path_name
 
+    @property
+    def file_map(self):
+        """ getter file_map """
+        return self._file_map
+
     def _check_path_name(self):
         """ check if path_name is a valid resource"""
         if (os.path.exists(self._path_name) == False):
@@ -27,8 +34,8 @@ class MapDescription :
         """ read the content of file map in private array """
         try:
             with open(self._path_name) as f:
-                print(f.readlines())
-                # Do something with the file
+                self._file_map = f.readlines()
+                # print(f.readlines())
         except IOError:
             # Log !!
             raise(Exception("File map not accessible"))

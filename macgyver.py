@@ -9,7 +9,6 @@ import os
 
 from mapdescription import MapDescription
 
-
 def parse_arguments():
     """Parse_arguments parsing args no parameter."""
     parser = argparse.ArgumentParser()
@@ -17,14 +16,18 @@ def parse_arguments():
         labyrinth""", default="default.txt")
     return parser.parse_args()
 
-def main():
-    """Main entry no parameter."""
-    args = parse_arguments()
-    map_name = args.datafile
+def read_map(map_name):
+    """Check and read content of map."""
     map_path = constant.RESOURCE_PATH
     local_path = os.path.dirname(os.path.realpath(__file__))
     data_file = os.path.join( local_path, map_path, map_name)
     map_description = MapDescription(data_file)
+    return map_description
+
+def main():
+    """Main entry no parameter."""
+    args = parse_arguments()
+    map_description = read_map(args.datafile)
     print(map_description.path_name)
     return
 
