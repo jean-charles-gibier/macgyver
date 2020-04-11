@@ -12,6 +12,7 @@ import constant
 import os
 
 from mapdescription import MapDescription
+from items import *
 
 
 def parse_arguments():
@@ -48,14 +49,13 @@ def draw_map(map, fenetre):
     """draw map into a window."""
     mur = pygame.image.load(constant.IMG_WALL).convert()
     y_unit = 0
-    for raw in map.file_map:
+    for raw in map.map_content:
         x_raw = 0
         for unit in raw:
             if unit == '#':
                 fenetre.blit(mur, (x_raw, y_unit))
             x_raw = x_raw + constant.UNIT_SIZE
         y_unit = y_unit + constant.UNIT_SIZE
-    pygame.display.flip()
     return
 
 
@@ -74,7 +74,7 @@ def env_decorator(fonction):
 @env_decorator
 def init_graphical_env(map):
     """Set graphical envirpnnement type ."""
-    if (map.file_type == constant.PYGAME_TYPE):
+    if (map.map_type == constant.PYGAME_TYPE):
         pygame.init()
         lg.info('Taille de la fenetre : %d X %d', map.height * constant.UNIT_SIZE, map.length * constant.UNIT_SIZE)
         fenetre = pygame.display.set_mode((map.height * constant.UNIT_SIZE, map.length * constant.UNIT_SIZE))
@@ -90,13 +90,21 @@ def main():
     map_description = read_map(args.datafile)
     lg.info('Map description loaded: %s', map_description.path_name)
 
+    path_tuples = map_description.path_course
+    pprint(path_tuples)
+
     fenetre = init_graphical_env(map_description)
     lg.info('Graphical env set : %s', map_description.path_name)
+
+    # set MC Gyver
+    McGyver = Perso(map_description.xy_start_point[0], map_description.xy_start_point[1], constant.IMG_MCGYVER)
 
     # main loop
     continuer = 1
     while continuer:
         draw_map(map_description, fenetre)
+        McGyver.display(fenetre)
+        pygame.display.flip()
         pygame.time.Clock().tick(30)
 
         for event in pygame.event.get():
