@@ -1,5 +1,8 @@
+#! /usr/bin/env python3
 # -*- coding: utf-8 -*-
+
 import pygame
+from pygame.locals import *
 import time
 import os
 local_dir = os.path.dirname(os.path.realpath(__file__))
