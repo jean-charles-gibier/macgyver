@@ -9,7 +9,7 @@ def test_something():
 
 def test_default_file_map():
     """ Test map resource """
-    test_path = 'D:\\work\\source\\repos\\macgyver\\resources\\default.txt'
+    test_path = 'resources/default.txt'
     mad = mapdescription.MapDescription(test_path)
     assert mad.path_name == test_path
     # check if we really got a 15x15 sized array
