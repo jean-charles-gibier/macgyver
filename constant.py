@@ -4,6 +4,7 @@ RESOURCE_PATH = "resources"
 
 # size
 UNIT_SIZE = 20
+UNITS_PER_ROW = 15
 
 # type d'environnement
 PYGAME_TYPE = 0
@@ -17,4 +18,6 @@ IMG_START = RESOURCE_PATH + "/depart.png"
 IMG_FINISH = RESOURCE_PATH + "/arrivee.png"
 IMG_MCGYVER = RESOURCE_PATH + "/MacGyver.png"
 IMG_GARDIEN = RESOURCE_PATH + "/Gardien.png"
-IMG_SERINGUE = RESOURCE_PATH + "/seringue.png"
+IMG_AIGUILLE = RESOURCE_PATH + "/aiguille2.png"
+IMG_ETHER = RESOURCE_PATH + "/ether2.png"
+IMG_TUBE = RESOURCE_PATH + "/tube_plastique2.png"

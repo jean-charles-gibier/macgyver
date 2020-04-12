@@ -1,5 +1,7 @@
 # coding: utf-8
 import os
+from pprint import pprint
+
 import constant
 
 
@@ -19,12 +21,20 @@ class MapDescription:
     _path_course = []
     # coord (x,y) items
     _xy_items = {}
+    # array of tuples (x,y) of the path course
+    _possible_path = []
 
     def __init__(self, path_name):
         """ init test if path name exists """
         self._path_name = path_name
+        # verifie la présence du fichier carte
         self._check_path_name()
+        # lit la carte
         self._read_map()
+        # repere les coord. x,y accessibles au deplacement
+        # on va déposer les items dans l'ordre du parcours
+        # par ex : placer le tube avant le garde
+        self._possible_path = self._build_sample_path_(self.xy_start_point, [])
 
     @property
     def path_name(self):
@@ -86,14 +96,18 @@ class MapDescription:
         """ getter xy_needle  """
         return self._xy_items['N']
 
+    @property
+    def possible_path(self):
+        """ getter xy_needle  """
+        return self._possible_path
+
     def _check_path_name(self):
         """ check if path_name is a valid resource"""
         if (os.path.exists(self._path_name) == False):
             raise (Exception("File map not accessible"))
 
     def _find_path_course(self):
-        """ find path_course into map
-        fill an array of tuples (x,y) that indicates the allowed path """
+        """ fill an array of tuples (x,y) that indicates the allowed path """
         y_unit = 0
         for raw in self.map_content:
             x_raw = 0
@@ -116,3 +130,32 @@ class MapDescription:
         except IOError:
             # Log !!
             raise (Exception("File map not accessible"))
+
+    def _build_sample_path_(self, curr_coord, found_coord):
+        """  try to find at least one path from start to end """
+        # on arrete de chercher si on est déjà passé par cette coordonnée
+        if (curr_coord in found_coord):
+            return None
+        # on arrete de chercher si la coordonnée n'est pas selectionable
+        if (curr_coord not in self._path_course):
+            return None
+        # si on tombe sur la case d'arrrivée => c'est gagné on renvoie le parcours
+        if (curr_coord == self.xy_end_point):
+            found_coord.append(curr_coord)
+            return found_coord
+
+        # on est dans la continuation de la récursion
+        for coord in self._path_course:
+            if coord == curr_coord:
+                found_coord.append(coord)
+                res = self._build_sample_path_((coord[0] + 1, coord[1]), found_coord)
+                if res == None:
+                    res = self._build_sample_path_((coord[0] - 1, coord[1]), found_coord)
+                if res == None:
+                    res = self._build_sample_path_((coord[0], coord[1] + 1), found_coord)
+                if res == None:
+                    res = self._build_sample_path_((coord[0], coord[1] - 1), found_coord)
+                return res
+
+        return None
+

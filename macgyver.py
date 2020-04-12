@@ -9,6 +9,7 @@ from sys import stdout
 import logging as lg
 import argparse
 import constant
+import random
 import os
 
 from mapdescription import MapDescription
@@ -80,30 +81,48 @@ def init_graphical_env(map):
         fenetre = pygame.display.set_mode((map.height * constant.UNIT_SIZE, map.length * constant.UNIT_SIZE))
         return fenetre
 
+def dispatch_items(map):
+    """" repartir les différent items dans l'aire du jeu en prenant soin
+    que la disposition ne bloque pas le joueur """
+    # set guard perso
+    McGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
+    # how many places
+    nb_pos = len(map.possible_path)
+    p1 = random.choice(range((int)(nb_pos/2), nb_pos))
+    Guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
+    p2 = random.choice(range(2, p1))
+    Needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)
+    p3 = random.choice(range(2, p2))
+    Ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1], constant.IMG_ETHER)
+    p4 = random.choice(range(2, p3))
+    Tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1], constant.IMG_TUBE)
+
+    return McGyver, Guard, Needle, Ether, Tube
 
 def main():
     """Main entry no parameter."""
     args = parse_arguments()
-
+    # prepare les logs
     set_logger()
-
+    # lit le fichier map
     map_description = read_map(args.datafile)
     lg.info('Map description loaded: %s', map_description.path_name)
-
-    path_tuples = map_description.path_course
-    pprint(path_tuples)
 
     fenetre = init_graphical_env(map_description)
     lg.info('Graphical env set : %s', map_description.path_name)
 
-    # set MC Gyver
-    McGyver = Perso(map_description.xy_start_point[0], map_description.xy_start_point[1], constant.IMG_MCGYVER)
+    (McGyver, Guard, Needle, Ether, Tube) = dispatch_items(map_description)
+    lg.info('Dispatch items set')
 
     # main loop
     continuer = 1
     while continuer:
         draw_map(map_description, fenetre)
         McGyver.display(fenetre)
+        Guard.display(fenetre)
+        Needle.display(fenetre)
+        Ether.display(fenetre)
+        Tube.display(fenetre)
         pygame.display.flip()
         pygame.time.Clock().tick(30)
 
