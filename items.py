@@ -20,6 +20,7 @@ class Item:
         """display current item on main window"""
         self.image = pygame.image.load(self.img_file).convert_alpha()
         fenetre.blit(self.image.subsurface(Rect(10,10,20,20)), (self.x, self.y))
+#        fenetre.blit(self.image, (self.x, self.y))
 
 class Perso(Item):
     """Classe permettant de créer un personnage"""
@@ -27,16 +28,6 @@ class Perso(Item):
     def __init__(self, pos_x=0, pos_y=0, img_file=""):
         super().__init__(pos_x, pos_y, img_file)
 
-    #        # Sprite du personnage
-#        self.image = pygame.image.load(droite).convert_alpha()
-        # Position du personnage en cases et en pixels
-#        self.case_x = 0
-#        self.case_y = 0
-#        self.x = 0
-#        self.y = 0
-        # Direction par défaut
-#        self.direction = self.droite
-        # Niveau dans lequel le personnage se trouve
 
     def deplacer(self, direction):
         """Methode permettant de déplacer le personnage"""
