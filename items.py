@@ -15,12 +15,13 @@ class Item:
         self.x = pos_x * constant.UNIT_SIZE
         self.y = pos_y * constant.UNIT_SIZE
         self.img_file = img_file
+        self.image = pygame.image.load(self.img_file).convert_alpha()
+#        self.background = pygame.Surface((constant.UNIT_SIZE, constant.UNIT_SIZE))
+
 
     def display(self, fenetre):
         """display current item on main window"""
-        self.image = pygame.image.load(self.img_file).convert_alpha()
-        fenetre.blit(self.image.subsurface(Rect(10,10,20,20)), (self.x, self.y))
-#        fenetre.blit(self.image, (self.x, self.y))
+        fenetre.blit(self.image.subsurface(Rect(10,10,constant.UNIT_SIZE,constant.UNIT_SIZE)), (self.x, self.y))
 
 class Perso(Item):
     """Classe permettant de créer un personnage"""
@@ -29,43 +30,25 @@ class Perso(Item):
         super().__init__(pos_x, pos_y, img_file)
 
 
-    def deplacer(self, direction):
+    def deplacer(self, direction, autorized_pos):
         """Methode permettant de déplacer le personnage"""
 
         # Déplacement vers la droite
-        if direction == 'droite':
-            # Pour ne pas dépasser l'écran
-            if  False : # self.case_x < (nombre_sprite_cote - 1):
-                # On vérifie que la case de destination n'est pas un mur
-                if self.niveau.structure[self.case_y][self.case_x + 1] != 'm':
-                    # Déplacement d'une case
-                    self.case_x += 1
-                    # Calcul de la position "réelle" en pixel
-                    self.x = self.case_x # * taille_sprite
-            # Image dans la bonne direction
-            self.direction = self.droite
+        if direction == 'droite' and (self.case_x + 1, self.case_y) in autorized_pos:
+            self.case_x += 1
+            self.x += constant.UNIT_SIZE
 
         # Déplacement vers la gauche
-        if direction == 'gauche':
-            if self.case_x > 0:
-                if self.niveau.structure[self.case_y][self.case_x - 1] != 'm':
-                    self.case_x -= 1
-                    self.x = self.case_x  # * taille_sprite
-            self.direction = self.gauche
+        if direction == 'gauche'and (self.case_x - 1, self.case_y) in autorized_pos:
+            self.case_x -= 1
+            self.x -= constant.UNIT_SIZE
 
         # Déplacement vers le haut
-        if direction == 'haut':
-            if self.case_y > 0:
-                if self.niveau.structure[self.case_y - 1][self.case_x] != 'm':
-                    self.case_y -= 1
-                    self.y = self.case_y # * taille_sprite
-            self.direction = self.haut
+        if direction == 'haut'and (self.case_x, self.case_y - 1) in autorized_pos:
+            self.case_y -= 1
+            self.y -= constant.UNIT_SIZE
 
         # Déplacement vers le bas
-        if direction == 'bas':
-            if False : #self.case_y < (nombre_sprite_cote - 1):
-                if self.niveau.structure[self.case_y + 1][self.case_x] != 'm':
-                    self.case_y += 1
-                    self.y = self.case_y * taille_sprite
-            self.direction = self.bas
-
+        if direction == 'bas' and (self.case_x, self.case_y + 1) in autorized_pos:
+            self.case_y += 1
+            self.y += constant.UNIT_SIZE

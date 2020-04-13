@@ -49,12 +49,16 @@ def read_map(map_name):
 def draw_map(map, fenetre):
     """draw map into a window."""
     mur = pygame.image.load(constant.IMG_WALL).convert()
+    sol = pygame.Surface((constant.UNIT_SIZE, constant.UNIT_SIZE))
+
     y_unit = 0
     for raw in map.map_content:
         x_raw = 0
         for unit in raw:
             if unit == '#':
                 fenetre.blit(mur, (x_raw, y_unit))
+            else:
+                fenetre.blit(sol, (x_raw, y_unit))
             x_raw = x_raw + constant.UNIT_SIZE
         y_unit = y_unit + constant.UNIT_SIZE
     return
@@ -90,9 +94,9 @@ def dispatch_items(map):
     nb_pos = len(map.possible_path)
     p1 = random.choice(range((int)(nb_pos/2), nb_pos))
     Guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
-    p2 = random.choice(range(2, p1))
+    p2 = random.choice(range(4, p1))
     Needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)
-    p3 = random.choice(range(2, p2))
+    p3 = random.choice(range(3, p2))
     Ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1], constant.IMG_ETHER)
     p4 = random.choice(range(2, p3))
     Tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1], constant.IMG_TUBE)
@@ -139,13 +143,13 @@ def main():
 
                 # Todo a gerer par event / listener
                 elif event.key == K_RIGHT:
-                    pass
+                    McGyver.deplacer('droite', map_description.path_course)
                 elif event.key == K_LEFT:
-                    pass
+                    McGyver.deplacer('gauche', map_description.path_course)
                 elif event.key == K_UP:
-                    pass
+                    McGyver.deplacer('haut', map_description.path_course)
                 elif event.key == K_DOWN:
-                    pass
+                    McGyver.deplacer('bas', map_description.path_course)
     return
 
 
