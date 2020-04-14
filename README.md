@@ -41,6 +41,9 @@ Exemple :
 #             #
 ############E##
 ````
+Rendu :
+
+![Rendu](lhttps://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple1.png)
 
 
 # TODO
