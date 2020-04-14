@@ -21,7 +21,8 @@ Chaque caractère de la ligne représentera un des éléments suivants au choix 
 - la case d'arrivée' (char 'E' )
 
 Ce fichier est situé dans le repertoire 'resources'.
-Le programme interprète le plan du fichier et place 3 items (Aiguille, Tube, Ether) plus un personnage (Gardien) sur les cases accessibles du plan.<br>
+Le programme interprète le plan du fichier et place 3 items (Aiguille, Tube, Ether) plus un personnage (Gardien), au hasard sur les cases accessibles du plan.<br>
+
 (les items seront disposés de manière à ne pas bloquer le jeu : le garde ne devra pas bloquer l'accès aux items à collecter)
 
 Exemple :
