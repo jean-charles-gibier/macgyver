@@ -41,7 +41,7 @@ Exemple :
 #             #
 ############E##
 ````
-Rendu :
+Donne le rendu :
 
 ![Rendu](lhttps://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple1.png)
 
