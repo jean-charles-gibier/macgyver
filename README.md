@@ -12,6 +12,8 @@ optional arguments:
                         file containing map of labyrinth
 ````
 # fonctionalités
+Les fonctionalités requise pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
+
 En exploitant les services de l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
 de 15x15 caractères séparés par des "retour chariot". Chaque ligne du texte représente une ligne du jeu .<br>
 Chaque caractère de la ligne représentera un des éléments suivants au choix :
