@@ -49,6 +49,9 @@ Donne le rendu :
 
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple1.png)
 
+En fin de partie les items collecté et le garde anihilé apparaissent dans la barre du bas.
+
+![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple2.png)
 
 # TODO
 Ajouter une abstraction/implementation pour par exemple utiliser une interface textuelle
