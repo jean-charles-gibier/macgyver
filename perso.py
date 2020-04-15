@@ -1,12 +1,12 @@
 import constant
 from item import Item
 
+
 class Perso(Item):
     """Classe permettant de créer un personnage"""
 
     def __init__(self, pos_x=0, pos_y=0, img_file=""):
         super().__init__(pos_x, pos_y, img_file)
-
 
     def deplacer(self, direction, autorized_pos):
         """Methode permettant de déplacer le personnage"""
@@ -17,12 +17,12 @@ class Perso(Item):
             self.x += constant.UNIT_SIZE
 
         # Déplacement vers la gauche
-        if direction == 'gauche'and (self.case_x - 1, self.case_y) in autorized_pos:
+        if direction == 'gauche' and (self.case_x - 1, self.case_y) in autorized_pos:
             self.case_x -= 1
             self.x -= constant.UNIT_SIZE
 
         # Déplacement vers le haut
-        if direction == 'haut'and (self.case_x, self.case_y - 1) in autorized_pos:
+        if direction == 'haut' and (self.case_x, self.case_y - 1) in autorized_pos:
             self.case_y -= 1
             self.y -= constant.UNIT_SIZE
 
@@ -37,4 +37,4 @@ class Perso(Item):
         elif (isinstance(other_item, tuple)):
             return ((self.case_x, self.case_y) == (other_item[0], other_item[1]))
         else:
-            raise  Exception('cannot compare')
+            raise Exception('cannot compare')

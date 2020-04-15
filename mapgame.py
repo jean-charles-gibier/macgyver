@@ -104,10 +104,10 @@ class MapGame:
     def _check_path_name(self):
         """ check if path_name is a valid resource"""
         if (os.path.exists(self._path_name) == False):
-            if (os.path.exists("resources/"+ self._path_name) == False):
+            if (os.path.exists("resources/" + self._path_name) is False):
                 raise (Exception("File " + self._path_name + " : map not accessible"))
-            else :
-                self._path_name = "resources/"+ self._path_name
+            else:
+                self._path_name = "resources/" + self._path_name
 
     def _find_path_course(self):
         """ fill an array of tuples (x,y) that indicates the allowed path """
@@ -152,11 +152,11 @@ class MapGame:
             if coord == curr_coord:
                 found_coord.append(coord)
                 res = self._build_sample_path_((coord[0] + 1, coord[1]), found_coord)
-                if res == None:
+                if res is None:
                     res = self._build_sample_path_((coord[0] - 1, coord[1]), found_coord)
-                if res == None:
+                if res is None:
                     res = self._build_sample_path_((coord[0], coord[1] + 1), found_coord)
-                if res == None:
+                if res is None:
                     res = self._build_sample_path_((coord[0], coord[1] - 1), found_coord)
                 return res
 
@@ -169,7 +169,6 @@ class MapGame:
         data_file = os.path.join(local_path, map_path, map_name)
         map_description = MapGame(data_file)
         return map_description
-
 
     def draw_map(self, fenetre):
         """draw map into a window."""
