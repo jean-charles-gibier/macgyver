@@ -11,7 +11,7 @@ UNITS_PER_ROW = 15
 PYGAME_TYPE = 0
 TEXT_TYPE = 1
 
-#Listes des images du jeu
+# Listes des images du jeu
 IMG_ICON = RESOURCE_PATH + "/icon.png"
 IMG_WALL = RESOURCE_PATH + "/mur-20x20.png"
 IMG_BACK = RESOURCE_PATH + "/fond.jpg"

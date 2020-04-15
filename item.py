@@ -16,8 +16,6 @@ class Item:
         self.img_file = img_file
         self.image = pygame.image.load(self.img_file).convert_alpha()
 
-
     def display(self, fenetre):
         """display current item on main window"""
-        fenetre.blit(self.image.subsurface(Rect(10,10,constant.UNIT_SIZE,constant.UNIT_SIZE)), (self.x, self.y))
-
+        fenetre.blit(self.image.subsurface(Rect(10, 10, constant.UNIT_SIZE, constant.UNIT_SIZE)), (self.x, self.y))

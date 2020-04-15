@@ -8,6 +8,7 @@ from perso import *
 from item import *
 from mapgame import MapGame
 import logging as lg
+
 logger = lg.getLogger(__name__)
 
 
@@ -16,14 +17,14 @@ def draw_footer(fenetre):
     font = pygame.font.Font('freesansbold.ttf', 16)
 
     # create a text suface object
-    text = font.render('Items :', True, (10,10,10), (200,200,200))
+    text = font.render('Items :', True, (10, 10, 10), (200, 200, 200))
 
     # create a rectangular object for the
     # text surface object
     textRect = text.get_rect()
 
     # set the center of the rectangular object.
-    textRect.center = (textRect.centerx + 1 , constant.UNIT_SIZE * constant.UNITS_PER_ROW + textRect.centery + 1)
+    textRect.center = (textRect.centerx + 1, constant.UNIT_SIZE * constant.UNITS_PER_ROW + textRect.centery + 1)
     fenetre.blit(text, textRect)
     return
 
@@ -32,31 +33,35 @@ def init_graphical_env(map):
     """Set graphical envirpnnement type ."""
     if (map.map_type == constant.PYGAME_TYPE):
         pygame.init()
-        lg.info('Taille de la fenetre : %d X %d', map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
-        fenetre = pygame.display.set_mode((map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE))
+        lg.info('Taille de la fenetre : %d X %d', map.length * constant.UNIT_SIZE,
+                (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
+        fenetre = pygame.display.set_mode(
+            (map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE))
         img_icon = pygame.image.load(constant.IMG_ICON).convert_alpha()
         pygame.display.set_icon(img_icon)
         pygame.display.set_caption('The wonderful game')
-        fenetre.fill( (200, 200, 200))
+        fenetre.fill((200, 200, 200))
         return fenetre
+
 
 def dispatch_items(map):
     """" dispatch the different items in the play area taking care
     that the layout does not block the player """
     # set McGyver personage
-    McGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
+    mcGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
     # how many boxes are accessible
     nb_pos = len(map.possible_path)
-    p1 = random.choice(range((int)(nb_pos/2), nb_pos))
-    Guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
+    p1 = random.choice(range((int)(nb_pos / 2), nb_pos))
+    guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
     p2 = random.choice(range(4, p1))
-    Needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)
+    needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)
     p3 = random.choice(range(3, p2))
-    Ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1], constant.IMG_ETHER)
+    ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1], constant.IMG_ETHER)
     p4 = random.choice(range(2, p3))
-    Tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1], constant.IMG_TUBE)
+    tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1], constant.IMG_TUBE)
 
-    return McGyver, Guard, Needle, Ether, Tube
+    return mcGyver, guard, needle, ether, tube
+
 
 def main():
     """Main entry no parameter."""
@@ -70,7 +75,7 @@ def main():
     fenetre = init_graphical_env(map_game)
     lg.info('Graphical env set : %s', map_game.path_name)
 
-    (McGyver, Guard, Needle, Ether, Tube) = dispatch_items(map_game)
+    (mcGyver, guard, needle, ether, tube) = dispatch_items(map_game)
     lg.info('Dispatch items set')
 
     # collected items
@@ -81,11 +86,11 @@ def main():
     while continuer:
         map_game.draw_map(fenetre)
         draw_footer(fenetre)
-        McGyver.display(fenetre)
-        Guard.display(fenetre)
-        Needle.display(fenetre)
-        Ether.display(fenetre)
-        Tube.display(fenetre)
+        mcGyver.display(fenetre)
+        guard.display(fenetre)
+        needle.display(fenetre)
+        ether.display(fenetre)
+        tube.display(fenetre)
         pygame.display.flip()
         pygame.time.Clock().tick(30)
 
@@ -100,43 +105,43 @@ def main():
                 if event.key == K_ESCAPE:
                     continuer = 0
                 elif event.key == K_RIGHT:
-                    McGyver.deplacer('droite', map_game.path_course)
+                    mcGyver.deplacer('droite', map_game.path_course)
                 elif event.key == K_LEFT:
-                    McGyver.deplacer('gauche', map_game.path_course)
+                    mcGyver.deplacer('gauche', map_game.path_course)
                 elif event.key == K_UP:
-                    McGyver.deplacer('haut', map_game.path_course)
+                    mcGyver.deplacer('haut', map_game.path_course)
                 elif event.key == K_DOWN:
-                    McGyver.deplacer('bas', map_game.path_course)
+                    mcGyver.deplacer('bas', map_game.path_course)
 
                 # check items
-                if McGyver.compare_pos(Guard):
+                if mcGyver.compare_pos(guard):
                     lg.info('On rencontre le garde ')
                     if len(collected_items) == 3:
                         lg.info('Ok Garde endormi ')
-                        Guard.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                        Guard.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 4)
+                        guard.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                        guard.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 4)
                     else:
                         lg.info('You loose !')
 
-                elif McGyver.compare_pos(Needle):
+                elif mcGyver.compare_pos(needle):
                     lg.info('On rencontre l''aiguille ')
-                    collected_items.append(Needle)
-                    Needle.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    Needle.x = (constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2
+                    collected_items.append(needle)
+                    needle.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                    needle.x = (constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2
 
-                elif McGyver.compare_pos(Ether):
-                    collected_items.append(Ether)
+                elif mcGyver.compare_pos(ether):
+                    collected_items.append(ether)
                     lg.info('On rencontre la bouteille d''ether ')
-                    Ether.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    Ether.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + (constant.UNIT_SIZE + 10)
+                    ether.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                    ether.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + (constant.UNIT_SIZE + 10)
 
-                elif McGyver.compare_pos(Tube):
-                    collected_items.append(Tube)
+                elif mcGyver.compare_pos(tube):
+                    collected_items.append(tube)
                     lg.info('On rencontre le tube ')
-                    Tube.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    Tube.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 2)
+                    tube.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                    tube.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 2)
 
-                elif McGyver.compare_pos((map_game.xy_end_point[0], map_game.xy_end_point[1])):
+                elif mcGyver.compare_pos((map_game.xy_end_point[0], map_game.xy_end_point[1])):
                     if len(collected_items) == 3:
                         lg.info('You win !')
     return
