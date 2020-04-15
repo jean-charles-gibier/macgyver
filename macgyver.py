@@ -2,68 +2,16 @@
 # coding: utf-8
 
 """This script starts mc Guyver labyrinth parameter is :  file_name (discribing map)."""
-import pygame
-from pygame.locals import *
-from pprint import pprint as print, pprint
-from sys import stdout
-import logging as lg
-import argparse
+import utils
 import random
-import os
-
-from mapdescription import MapDescription
-from items import *
-
-
-def parse_arguments():
-    """Parse_arguments parsing args
-     parameters :
-        --datafile : name of file map without extension """
-    parser = argparse.ArgumentParser()
-    parser.add_argument("-d", "--datafile", help="""TXT file containing map of
-        labyrinth""", default="default.txt")
-    return parser.parse_args()
+from perso import *
+from item import *
+from mapgame import MapGame
+import logging as lg
+logger = lg.getLogger(__name__)
 
 
-def set_logger():
-    """set log environement."""
-    # Set logging stuff
-    fh = lg.StreamHandler(stdout)
-    formatter = lg.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(message)s')
-    fh.setFormatter(formatter)
-    logger = lg.getLogger()
-    logger.addHandler(fh)
-    logger.setLevel(lg.DEBUG)
-
-
-def read_map(map_name):
-    """Check and read content of map."""
-    map_path = constant.RESOURCE_PATH
-    local_path = os.path.dirname(os.path.realpath(__file__))
-    data_file = os.path.join(local_path, map_path, map_name)
-    map_description = MapDescription(data_file)
-    return map_description
-
-
-def draw_map(map, fenetre):
-    """draw map into a window."""
-    mur = pygame.image.load(constant.IMG_WALL).convert()
-    sol = pygame.Surface((constant.UNIT_SIZE, constant.UNIT_SIZE))
-
-    y_unit = 0
-    for raw in map.map_content:
-        x_raw = 0
-        for unit in raw:
-            if unit == '#':
-                fenetre.blit(mur, (x_raw, y_unit))
-            else:
-                fenetre.blit(sol, (x_raw, y_unit))
-            x_raw = x_raw + constant.UNIT_SIZE
-        y_unit = y_unit + constant.UNIT_SIZE
-    return
-
-
-def draw_footer(map, fenetre):
+def draw_footer(fenetre):
     """draw footer into a window."""
     font = pygame.font.Font('freesansbold.ttf', 16)
 
@@ -80,27 +28,12 @@ def draw_footer(map, fenetre):
     return
 
 
-def env_decorator(fonction):
-    """Just 4 test decorator feature :
-    we just multiply the number of colums/rows by pixels size """
-
-    def wrapper(*args, **kw):
-        #       pprint(args)
-        #       modified = [n * constant.UNIT_SIZE for n in args]
-        return fonction(*args, **kw)
-
-    return wrapper
-
-
-@env_decorator
 def init_graphical_env(map):
     """Set graphical envirpnnement type ."""
     if (map.map_type == constant.PYGAME_TYPE):
         pygame.init()
         lg.info('Taille de la fenetre : %d X %d', map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
-        fenetre = pygame.display.set_mode((map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
-                                         # ,pygame.RESIZABLE
-                                          )
+        fenetre = pygame.display.set_mode((map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE))
         img_icon = pygame.image.load(constant.IMG_ICON).convert_alpha()
         pygame.display.set_icon(img_icon)
         pygame.display.set_caption('The wonderful game')
@@ -108,8 +41,8 @@ def init_graphical_env(map):
         return fenetre
 
 def dispatch_items(map):
-    """" repartir les différent items dans l'aire du jeu en prenant soin
-    que la disposition ne bloque pas le joueur """
+    """" dispatch the different items in the play area taking care
+    that the layout does not block the player """
     # set McGyver personage
     McGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
     # how many boxes are accessible
@@ -127,17 +60,17 @@ def dispatch_items(map):
 
 def main():
     """Main entry no parameter."""
-    args = parse_arguments()
+    args = utils.parse_arguments()
     # prepare les logs
-    set_logger()
+    utils.set_logger()
     # lit le fichier map
-    map_description = read_map(args.datafile)
-    lg.info('Map description loaded: %s', map_description.path_name)
+    map_game = MapGame(args.datafile)
+    lg.info('Map description loaded: %s', map_game.path_name)
 
-    fenetre = init_graphical_env(map_description)
-    lg.info('Graphical env set : %s', map_description.path_name)
+    fenetre = init_graphical_env(map_game)
+    lg.info('Graphical env set : %s', map_game.path_name)
 
-    (McGyver, Guard, Needle, Ether, Tube) = dispatch_items(map_description)
+    (McGyver, Guard, Needle, Ether, Tube) = dispatch_items(map_game)
     lg.info('Dispatch items set')
 
     # collected items
@@ -146,8 +79,8 @@ def main():
     # main loop
     continuer = 1
     while continuer:
-        draw_map(map_description, fenetre)
-        draw_footer(map_description, fenetre)
+        map_game.draw_map(fenetre)
+        draw_footer(fenetre)
         McGyver.display(fenetre)
         Guard.display(fenetre)
         Needle.display(fenetre)
@@ -167,13 +100,13 @@ def main():
                 if event.key == K_ESCAPE:
                     continuer = 0
                 elif event.key == K_RIGHT:
-                    McGyver.deplacer('droite', map_description.path_course)
+                    McGyver.deplacer('droite', map_game.path_course)
                 elif event.key == K_LEFT:
-                    McGyver.deplacer('gauche', map_description.path_course)
+                    McGyver.deplacer('gauche', map_game.path_course)
                 elif event.key == K_UP:
-                    McGyver.deplacer('haut', map_description.path_course)
+                    McGyver.deplacer('haut', map_game.path_course)
                 elif event.key == K_DOWN:
-                    McGyver.deplacer('bas', map_description.path_course)
+                    McGyver.deplacer('bas', map_game.path_course)
 
                 # check items
                 if McGyver.compare_pos(Guard):
@@ -203,7 +136,7 @@ def main():
                     Tube.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
                     Tube.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 2)
 
-                elif McGyver.compare_pos((map_description.xy_end_point[0], map_description.xy_end_point[1])):
+                elif McGyver.compare_pos((map_game.xy_end_point[0], map_game.xy_end_point[1])):
                     if len(collected_items) == 3:
                         lg.info('You win !')
     return
