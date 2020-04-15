@@ -1,11 +1,11 @@
 # coding: utf-8
+import pygame
+# from pygame.locals import *
 import os
-from pprint import pprint
-
 import constant
 
 
-class MapDescription:
+class MapGame:
     """ Map description of the game """
     # name of file descriptor
     _path_name = ""
@@ -104,7 +104,10 @@ class MapDescription:
     def _check_path_name(self):
         """ check if path_name is a valid resource"""
         if (os.path.exists(self._path_name) == False):
-            raise (Exception("File map not accessible"))
+            if (os.path.exists("resources/"+ self._path_name) == False):
+                raise (Exception("File " + self._path_name + " : map not accessible"))
+            else :
+                self._path_name = "resources/"+ self._path_name
 
     def _find_path_course(self):
         """ fill an array of tuples (x,y) that indicates the allowed path """
@@ -159,3 +162,28 @@ class MapDescription:
 
         return None
 
+    def read_map(self, map_name):
+        """Check and read content of map."""
+        map_path = constant.RESOURCE_PATH
+        local_path = os.path.dirname(os.path.realpath(__file__))
+        data_file = os.path.join(local_path, map_path, map_name)
+        map_description = MapGame(data_file)
+        return map_description
+
+
+    def draw_map(self, fenetre):
+        """draw map into a window."""
+        mur = pygame.image.load(constant.IMG_WALL).convert()
+        sol = pygame.Surface((constant.UNIT_SIZE, constant.UNIT_SIZE))
+
+        y_unit = 0
+        for raw in self.map_content:
+            x_raw = 0
+            for unit in raw:
+                if unit == '#':
+                    fenetre.blit(mur, (x_raw, y_unit))
+                else:
+                    fenetre.blit(sol, (x_raw, y_unit))
+                x_raw = x_raw + constant.UNIT_SIZE
+            y_unit = y_unit + constant.UNIT_SIZE
+        return
