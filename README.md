@@ -54,6 +54,8 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple2.png)
 
 # TODO
+L'import de pygame se fait dans 2 modules distincts macgyver.py et mapgame.py => il faudrait unifier les imports dans un seul module et découpler le dessin de la map de pygame.
+
 Ajouter une abstraction/implementation pour par exemple utiliser une interface textuelle
 
 generer un parcours aléatoire (plateau 15 x 15 par defaut)
