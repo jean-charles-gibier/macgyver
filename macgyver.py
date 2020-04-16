@@ -21,17 +21,17 @@ def draw_footer(fenetre):
 
     # create a rectangular object for the
     # text surface object
-    textRect = text.get_rect()
+    textrect = text.get_rect()
 
     # set the center of the rectangular object.
-    textRect.center = (textRect.centerx + 1, constant.UNIT_SIZE * constant.UNITS_PER_ROW + textRect.centery + 1)
-    fenetre.blit(text, textRect)
+    textrect.center = (textrect.centerx + 1, constant.UNIT_SIZE * constant.UNITS_PER_ROW + textrect.centery + 1)
+    fenetre.blit(text, textrect)
     return
 
 
 def init_graphical_env(map):
     """Set graphical envirpnnement type ."""
-    if (map.map_type == constant.PYGAME_TYPE):
+    if map.map_type == constant.PYGAME_TYPE:
         pygame.init()
         lg.info('Taille de la fenetre : %d X %d', map.length * constant.UNIT_SIZE,
                 (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
@@ -51,7 +51,7 @@ def dispatch_items(map):
     mcGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
     # how many boxes are accessible
     nb_pos = len(map.possible_path)
-    p1 = random.choice(range((int)(nb_pos / 2), nb_pos))
+    p1 = random.choice(range(int(nb_pos / 2), nb_pos))
     guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
     p2 = random.choice(range(4, p1))
     needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)

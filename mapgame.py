@@ -25,10 +25,8 @@ class MapGame:
     _possible_path = []
 
     def __init__(self, path_name):
-        """ init test if path name exists """
-        self._path_name = path_name
         # verifie la présence du fichier carte
-        self._check_path_name()
+        self._check_path_name(path_name)
         # lit la carte
         self._read_map()
         # repere les coord. x,y accessibles au deplacement
@@ -101,13 +99,17 @@ class MapGame:
         """ getter xy_needle  """
         return self._possible_path
 
-    def _check_path_name(self):
+    def _check_path_name(self, path_name):
         """ check if path_name is a valid resource"""
-        if (os.path.exists(self._path_name) == False):
-            if (os.path.exists("resources/" + self._path_name) is False):
-                raise (Exception("File " + self._path_name + " : map not accessible"))
-            else:
-                self._path_name = "resources/" + self._path_name
+        map_path = constant.RESOURCE_PATH
+        local_path = os.path.dirname(os.path.realpath(__file__))
+        data_file = os.path.join(local_path, map_path, path_name)
+
+        if os.path.exists(data_file) is False:
+            raise (Exception("File " + data_file + " : map not accessible"))
+        else:
+            """ init test if path name exists """
+            self._path_name = data_file
 
     def _find_path_course(self):
         """ fill an array of tuples (x,y) that indicates the allowed path """
@@ -137,13 +139,13 @@ class MapGame:
     def _build_sample_path_(self, curr_coord, found_coord):
         """  try to find at least one path from start to end """
         # on arrete de chercher si on est déjà passé par cette coordonnée
-        if (curr_coord in found_coord):
+        if curr_coord in found_coord:
             return None
         # on arrete de chercher si la coordonnée n'est pas selectionable
-        if (curr_coord not in self._path_course):
+        if curr_coord not in self._path_course:
             return None
         # si on tombe sur la case d'arrrivée => c'est gagné on renvoie le parcours
-        if (curr_coord == self.xy_end_point):
+        if curr_coord == self.xy_end_point:
             found_coord.append(curr_coord)
             return found_coord
 
@@ -161,14 +163,6 @@ class MapGame:
                 return res
 
         return None
-
-    def read_map(self, map_name):
-        """Check and read content of map."""
-        map_path = constant.RESOURCE_PATH
-        local_path = os.path.dirname(os.path.realpath(__file__))
-        data_file = os.path.join(local_path, map_path, map_name)
-        map_description = MapGame(data_file)
-        return map_description
 
     def draw_map(self, fenetre):
         """draw map into a window."""

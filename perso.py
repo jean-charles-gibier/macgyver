@@ -32,9 +32,9 @@ class Perso(Item):
             self.y += constant.UNIT_SIZE
 
     def compare_pos(self, other_item):
-        if (isinstance(other_item, Item) or isinstance(other_item, Perso)):
-            return ((self.x, self.y) == (other_item.x, other_item.y))
-        elif (isinstance(other_item, tuple)):
-            return ((self.case_x, self.case_y) == (other_item[0], other_item[1]))
+        if isinstance(other_item, Item) or isinstance(other_item, Perso):
+            return (self.x, self.y) == (other_item.x, other_item.y)
+        elif isinstance(other_item, tuple):
+            return (self.case_x, self.case_y) == (other_item[0], other_item[1])
         else:
             raise Exception('cannot compare')

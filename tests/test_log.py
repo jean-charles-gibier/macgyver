@@ -1,10 +1,8 @@
-import sys
 import unittest
-sys.path.insert(0, '..')
-import  utils
+import utils
 import logging as lg
-logger = lg.getLogger(__name__)
 
+logger = lg.getLogger(__name__)
 
 
 class MyTestCase(unittest.TestCase):
@@ -18,7 +16,6 @@ class MyTestCase(unittest.TestCase):
         lg.debug('Test log debug')
         lg.warning('Test log warning')
         lg.critical('Test log Critical')
-
 
 
 if __name__ == '__main__':
