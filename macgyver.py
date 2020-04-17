@@ -2,11 +2,14 @@
 # coding: utf-8
 
 """This script starts mc Guyver labyrinth parameter is :  file_name (discribing map)."""
-import utils
-import random
-from perso import *
-from item import *
 from mapgame import MapGame
+from perso import Perso
+from item import Item
+import utils
+import constant
+from pygame.constants import (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
+import pygame
+import random
 import logging as lg
 
 logger = lg.getLogger(__name__)
@@ -24,19 +27,20 @@ def draw_footer(fenetre):
     textrect = text.get_rect()
 
     # set the center of the rectangular object.
-    textrect.center = (textrect.centerx + 1, constant.UNIT_SIZE * constant.UNITS_PER_ROW + textrect.centery + 1)
+    textrect.center = (textrect.centerx + 1, constant.UNIT_SIZE *
+                       constant.UNITS_PER_ROW + textrect.centery + 1)
     fenetre.blit(text, textrect)
-    return
 
 
-def init_graphical_env(map):
+def init_graphical_env(mapgame):
     """Set graphical envirpnnement type ."""
-    if map.map_type == constant.PYGAME_TYPE:
+    if mapgame.map_type == constant.PYGAME_TYPE:
         pygame.init()
-        lg.info('Taille de la fenetre : %d X %d', map.length * constant.UNIT_SIZE,
-                (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
+        lg.info('Taille de la fenetre : %d X %d', mapgame.length * constant.UNIT_SIZE,
+                (mapgame.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
         fenetre = pygame.display.set_mode(
-            (map.length * constant.UNIT_SIZE, (map.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE))
+            (mapgame.length * constant.UNIT_SIZE,
+             (mapgame.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE))
         img_icon = pygame.image.load(constant.IMG_ICON).convert_alpha()
         pygame.display.set_icon(img_icon)
         pygame.display.set_caption('The wonderful game')
@@ -118,28 +122,31 @@ def main():
                     lg.info('On rencontre le garde ')
                     if len(collected_items) == 3:
                         lg.info('Ok Garde endormi ')
-                        guard.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                        guard.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 4)
+                        guard.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                        guard.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) +\
+                                        ((constant.UNIT_SIZE + 10) * 4)
                     else:
                         lg.info('You loose !')
 
                 elif mcGyver.compare_pos(needle):
                     lg.info('On rencontre l''aiguille ')
                     collected_items.append(needle)
-                    needle.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    needle.x = (constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2
+                    needle.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                    needle.value_x = (constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2
 
                 elif mcGyver.compare_pos(ether):
                     collected_items.append(ether)
                     lg.info('On rencontre la bouteille d''ether ')
-                    ether.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    ether.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + (constant.UNIT_SIZE + 10)
+                    ether.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                    ether.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) +\
+                                    (constant.UNIT_SIZE + 10)
 
                 elif mcGyver.compare_pos(tube):
                     collected_items.append(tube)
                     lg.info('On rencontre le tube ')
-                    tube.y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    tube.x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + ((constant.UNIT_SIZE + 10) * 2)
+                    tube.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+                    tube.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) +\
+                                   ((constant.UNIT_SIZE + 10) * 2)
 
                 elif mcGyver.compare_pos((map_game.xy_end_point[0], map_game.xy_end_point[1])):
                     if len(collected_items) == 3:

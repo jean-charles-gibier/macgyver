@@ -1,5 +1,4 @@
-# Constantes
-# paths
+''' Constants & paths'''
 RESOURCE_PATH = "resources"
 
 # size
