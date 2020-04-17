@@ -2,7 +2,6 @@
 import pygame
 import  pygame.locals
 from pygame.rect import Rect
-
 import constant
 
 

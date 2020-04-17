@@ -162,20 +162,3 @@ class MapGame:
                 return res
 
         return None
-
-    def draw_map(self, fenetre):
-        """draw map into a window."""
-        mur = pygame.image.load(constant.IMG_WALL).convert()
-        sol = pygame.Surface((constant.UNIT_SIZE, constant.UNIT_SIZE))
-
-        y_unit = 0
-        for raw in self.map_content:
-            x_raw = 0
-            for unit in raw:
-                if unit == '#':
-                    fenetre.blit(mur, (x_raw, y_unit))
-                else:
-                    fenetre.blit(sol, (x_raw, y_unit))
-                x_raw = x_raw + constant.UNIT_SIZE
-            y_unit = y_unit + constant.UNIT_SIZE
-        return
