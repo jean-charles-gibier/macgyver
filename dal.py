@@ -13,13 +13,13 @@ class Dal(abc.ABC):
         pass
 
     @abc.abstractmethod
-    def load_item(self):
+    def load_item(self, fenetre, item):
         """load  item
         exemple pygame.image.load ... """
         pass
 
     @abc.abstractmethod
-    def draw_item(self):
+    def draw_item(self, fenetre, item):
         """display figure of item
         exemple blit ... """
         pass

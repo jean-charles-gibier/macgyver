@@ -10,12 +10,12 @@ class DalText(Dal):
         """inteface intialization ne sert pas à gd chose en mode texte"""
         return format(type(self))
 
-    def load_item(self):
+    def load_item(self, fenetre, item):
         """load  item
         exemple pygame.image.load ... """
         pass
 
-    def draw_item(self):
+    def draw_item(self, fenetre, item):
         """display figure of item
         exemple blit ... """
         pass

@@ -1,7 +1,4 @@
 ''' item and personages description '''
-import pygame
-import  pygame.locals
-from pygame.rect import Rect
 import constant
 
 
@@ -17,10 +14,4 @@ class Item:
         self.img_file = img_file
 #        self.image = pygame.image.load(self.img_file).convert_alpha()
         self.image = None
-
-    def display(self, fenetre ):
-        """display current item on main window"""
-#        pass
-#        fenetre.blit(self.image.subsurface(Rect(
-#            10, 10, constant.UNIT_SIZE, constant.UNIT_SIZE)), (self.value_x, self.value_y))
 

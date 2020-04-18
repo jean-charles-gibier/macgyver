@@ -13,21 +13,26 @@ import logging as lg
 logger = lg.getLogger(__name__)
 
 
-def dispatch_items(display, map):
+def dispatch_items(display, fenetre, map):
     """" dispatch the different items in the play area taking care
     that the layout does not block the player """
     # set McGyver personage
     mcGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
+    display.load_item(fenetre, mcGyver)
     # how many boxes are accessible
     nb_pos = len(map.possible_path)
     p1 = random.choice(range(int(nb_pos / 2), nb_pos))
     guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
+    display.load_item(fenetre, guard)
     p2 = random.choice(range(4, p1))
     needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)
+    display.load_item(fenetre, needle)
     p3 = random.choice(range(3, p2))
     ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1], constant.IMG_ETHER)
+    display.load_item(fenetre, ether)
     p4 = random.choice(range(2, p3))
     tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1], constant.IMG_TUBE)
+    display.load_item(fenetre, tube)
 
     return mcGyver, guard, needle, ether, tube
 
@@ -54,7 +59,7 @@ def main():
     fenetre = display.init(map_game)
     lg.info('%s env set : %s', args.interface, map_game.path_name)
 
-    (mcGyver, guard, needle, ether, tube) = dispatch_items(display, map_game)
+    (mcGyver, guard, needle, ether, tube) = dispatch_items(display, fenetre, map_game)
     lg.info('Dispatch items set')
 
     # collected items
