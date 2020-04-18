@@ -1,7 +1,7 @@
 from dal import Dal
 import logging as lg
 logger = lg.getLogger(__name__)
-# import constant
+from time import sleep
 
 
 class DalText(Dal):
@@ -10,12 +10,12 @@ class DalText(Dal):
         """inteface intialization ne sert pas à gd chose en mode texte"""
         return format(type(self))
 
-    def load_figure(self):
-        """load figure of item
+    def load_item(self):
+        """load  item
         exemple pygame.image.load ... """
         pass
 
-    def display_figure(self):
+    def draw_item(self):
         """display figure of item
         exemple blit ... """
         pass
@@ -30,7 +30,7 @@ class DalText(Dal):
                 else:
                     print(' ', end='')
                 x_raw = x_raw + 1
-                print('')
+            print('')
             y_unit = y_unit + 1
         return
 
@@ -38,14 +38,16 @@ class DalText(Dal):
         pass
 
     def event_get(self):
-        return _Getch()
+        return [_Getch()]
 
     def clock(self):
-        pass
+        sleep(0.1)
 
     def flip(self):
-        pass
-
+        import os
+        from sys import platform
+        clear = lambda: os.system((platform == "win32" and 'cls') or 'clear')  #  Linux / windows  System
+        clear()
 
     def event_quit(self, event):
         pass

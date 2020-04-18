@@ -13,7 +13,7 @@ import logging as lg
 logger = lg.getLogger(__name__)
 
 
-def dispatch_items(map):
+def dispatch_items(display, map):
     """" dispatch the different items in the play area taking care
     that the layout does not block the player """
     # set McGyver personage
@@ -54,7 +54,7 @@ def main():
     fenetre = display.init(map_game)
     lg.info('%s env set : %s', args.interface, map_game.path_name)
 
-    (mcGyver, guard, needle, ether, tube) = dispatch_items(map_game)
+    (mcGyver, guard, needle, ether, tube) = dispatch_items(display, map_game)
     lg.info('Dispatch items set')
 
     # collected items
@@ -66,13 +66,13 @@ def main():
     while continuer:
         display.draw_map(fenetre, map_game.map_content)
         display.draw_footer(fenetre)
-        mcGyver.display(fenetre)
-        guard.display(fenetre)
-        needle.display(fenetre)
-        ether.display(fenetre)
-        tube.display(fenetre)
-        display.flip()
+        display.draw_item(fenetre, mcGyver)
+        display.draw_item(fenetre, guard)
+        display.draw_item(fenetre, needle)
+        display.draw_item(fenetre, ether)
+        display.draw_item(fenetre, tube)
         display.clock()
+        display.flip()
 
         for event in display.event_get():
 

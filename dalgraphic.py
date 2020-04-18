@@ -40,13 +40,13 @@ class DalGraphic(Dal):
             y_unit = y_unit + constant.UNIT_SIZE
         return
 
-    def load_figure(self):
-        """load figure of item
+    def load_item(self):
+        """load item
         exemple pygame.image.load ... """
         pass
 
-    def display_figure(self):
-        """display figure of item
+    def draw_item(self):
+        """display item
         exemple blit ... """
         pass
 
