@@ -69,7 +69,7 @@ def main():
     continuer = 1
 
     while continuer:
-        display.draw_map(fenetre, map_game.map_content)
+#        display.draw_map(fenetre, map_game.map_content)
         display.draw_footer(fenetre)
         display.draw_item(fenetre, mcGyver)
         display.draw_item(fenetre, guard)
@@ -78,6 +78,7 @@ def main():
         display.draw_item(fenetre, tube)
         display.clock()
         display.flip()
+
 
         for event in display.event_get():
 

@@ -1,44 +1,57 @@
+from pprint import pprint
+
+import constant
 from dal import Dal
 import logging as lg
 logger = lg.getLogger(__name__)
 from time import sleep
+from pygame import event
+from pygame.constants import (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
 
 
 class DalText(Dal):
     """ PyGame implementation """
     def init(self, map_game):
         """inteface intialization ne sert pas à gd chose en mode texte"""
-        return format(type(self))
+        return map_game.map_content
 
     def load_item(self, fenetre, item):
-        """load  item
-        exemple pygame.image.load ... """
+        """load  item not used in mode text """
         pass
 
     def draw_item(self, fenetre, item):
-        """display figure of item
-        exemple blit ... """
-        pass
+        """display figure of item ... """
+        switcher = {
+            constant.IMG_MCGYVER: "M",
+            constant.IMG_GARDIEN: "G",
+            constant.IMG_AIGUILLE:"A",
+            constant.IMG_ETHER: "E",
+            constant.IMG_TUBE: "T"
+        }
+        letter = switcher.get(item.img_file, " ")
+        l = list(fenetre[item.case_y])
+        l[item.case_x] = letter
+        fenetre[item.case_y] = "".join(l)
 
     def draw_map(self, fenetre, map_content):
+        print('')
         y_unit = 0
         for raw in map_content:
             x_raw = 0
             for unit in raw:
-                if unit == '#':
-                    print('#', end='')
-                else:
-                    print(' ', end='')
+                print(unit, end='')
                 x_raw = x_raw + 1
-            print('')
             y_unit = y_unit + 1
+        print('')
+        print('')
         return
 
     def draw_footer(self, fenetre):
         pass
 
     def event_get(self):
-        return [_Getch()]
+        getch = _Getch()
+        return [getch]
 
     def clock(self):
         sleep(0.1)
@@ -103,4 +116,3 @@ class _GetchWindows:
         import msvcrt
         return msvcrt.getch()
 
-getch = _Getch()
