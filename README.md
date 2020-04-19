@@ -56,7 +56,7 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple2.png)
 
 
-##Mode de fonctionnement rudimentaire :
+## Mode de fonctionnement rudimentaire :
 
 Pour démontrer le bon découplage des modules "vue" et "controle" dans la conception, le programme
 implémente un mode "Text" proposant un animation "old terminal".
