@@ -1,40 +1,47 @@
 #! /usr/bin/env python3
 # coding: utf-8
 
-"""This script starts mc Guyver labyrinth parameter is :  file_name (discribing map)."""
-
+"""This script starts mc Guyver labyrinth
+parameter is :
+  file_name (discribing map)."""
+import sys
+import random
 from core.mapgame import MapGame
 from core.item.perso import Perso
 from core.item.item import Item
 from core import constant, utils
-import random
-from tkinter import *
-from tkinter import messagebox
+from tkinter import messagebox, Tk
 import logging as lg
 
 logger = lg.getLogger(__name__)
 
 MODULE_DAL_PATH = 'core/dal'
 
+
 def dispatch_items(display, fenetre, map):
     """" dispatch the different items in the play area taking care
     that the layout does not block the player """
     # set McGyver personage
-    mcGyver = Perso(map.xy_start_point[0], map.xy_start_point[1], constant.IMG_MCGYVER)
+    mcGyver = Perso(map.xy_start_point[0], map.xy_start_point[1],
+                    constant.IMG_MCGYVER)
     display.load_item(fenetre, mcGyver)
     # how many boxes are accessible
     nb_pos = len(map.possible_path)
     p1 = random.choice(range(int(nb_pos / 2), nb_pos))
-    guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1], constant.IMG_GARDIEN)
+    guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1],
+                  constant.IMG_GARDIEN)
     display.load_item(fenetre, guard)
     p2 = random.choice(range(4, p1))
-    needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1], constant.IMG_AIGUILLE)
+    needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1],
+                  constant.IMG_AIGUILLE)
     display.load_item(fenetre, needle)
     p3 = random.choice(range(3, p2))
-    ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1], constant.IMG_ETHER)
+    ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1],
+                 constant.IMG_ETHER)
     display.load_item(fenetre, ether)
     p4 = random.choice(range(2, p3))
-    tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1], constant.IMG_TUBE)
+    tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1],
+                constant.IMG_TUBE)
     display.load_item(fenetre, tube)
 
     return mcGyver, guard, needle, ether, tube
@@ -64,7 +71,8 @@ def main():
     fenetre = display.init(map_game)
     lg.info('%s env set : %s', args.interface, map_game.path_name)
 
-    (mcGyver, guard, needle, ether, tube) = dispatch_items(display, fenetre, map_game)
+    (mcGyver, guard, needle, ether, tube) =\
+        dispatch_items(display, fenetre, map_game)
     lg.info('Dispatch items set')
 
     # collected items
@@ -84,23 +92,22 @@ def main():
         display.clock()
         display.flip()
 
-
         for event in display.event_get():
             # pprint.pprint(event)
             # Boucle event
-            if event == None:
+            if event is None:
                 continue
-            if display.event_quit(event) == True:
+            if display.event_quit(event) is True:
                 continuer = 0
-            elif display.event_keydown_escape(event) == True :
+            elif display.event_keydown_escape(event) is True:
                 continuer = 0
-            elif display.event_keydown_right(event) == True:
+            elif display.event_keydown_right(event) is True:
                 mcGyver.deplacer('droite', map_game.path_course)
-            elif display.event_keydown_left(event) == True:
+            elif display.event_keydown_left(event) is True:
                 mcGyver.deplacer('gauche', map_game.path_course)
-            elif display.event_keydown_up(event) == True:
+            elif display.event_keydown_up(event) is True:
                 mcGyver.deplacer('haut', map_game.path_course)
-            elif display.event_keydown_down(event) == True:
+            elif display.event_keydown_down(event) is True:
                 mcGyver.deplacer('bas', map_game.path_course)
 
             # check items
@@ -112,7 +119,7 @@ def main():
                 else:
                     lg.info('You loose !')
                     Tk().wm_withdraw()
-                    messagebox.showinfo('You loose !', 'OK')
+                    messagebox.showinfo('Oups', 'You loose !')
                     continuer = 0
 
             elif mcGyver.compare_pos(needle):
@@ -130,12 +137,14 @@ def main():
                 lg.info('On rencontre le tube ')
                 tube.exclude(2)
 
-            elif mcGyver.compare_pos((map_game.xy_end_point[0], map_game.xy_end_point[1])):
+            elif mcGyver.compare_pos((map_game.xy_end_point[0],
+                                      map_game.xy_end_point[1])):
                 if len(collected_items) == 3:
                     lg.info('You win !')
                     Tk().wm_withdraw()
-                    messagebox.showinfo('You win !', 'OK')
+                    messagebox.showinfo('Congratulations', 'You win !')
                     continuer = 0
+
 
 if __name__ == "__main__":
     main()
