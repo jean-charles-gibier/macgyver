@@ -1,4 +1,5 @@
 import argparse
+from enum import Enum
 from sys import stdout
 import logging as lg
 logger = lg.getLogger(__name__)
@@ -11,6 +12,8 @@ def parse_arguments():
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--datafile", help="""TXT file containing map of
         labyrinth""", default="default.txt")
+    parser.add_argument("-i", "--interface", help="""Display interface :
+        'text' or 'graphic'""", default="Graphic", choices=['Graphic', 'Text'])
     return parser.parse_args()
 
 
