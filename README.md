@@ -62,6 +62,7 @@ implémente un mode "Text" proposant un animation "old terminal".
 Ce mode reprend les mêmes principes de jeu en remplacant les sprites par des caractères les symbolisant.
 
 Exemple :
+
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple3.png)
 
 
