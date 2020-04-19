@@ -1,5 +1,5 @@
 import unittest
-import utils
+from core import utils
 import logging as lg
 
 logger = lg.getLogger(__name__)

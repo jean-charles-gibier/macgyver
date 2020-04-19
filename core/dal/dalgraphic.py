@@ -1,6 +1,7 @@
-from dal import Dal
+from core.dal.dal import Dal
 import logging as lg
-import constant
+from core import constant
+
 logger = lg.getLogger(__name__)
 from pygame.constants import (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
 from pygame.rect import Rect
@@ -23,6 +24,9 @@ class DalGraphic(Dal):
             pygame.display.set_caption('The wonderful game')
             fenetre.fill((200, 200, 200))
             return fenetre
+
+    def __del__(self):
+        pygame.quit()
 
     def draw_map(self, fenetre, map_content):
         """draw map into a window."""

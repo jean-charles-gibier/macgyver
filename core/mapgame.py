@@ -1,7 +1,6 @@
 # coding: utf-8
-import pygame
 import os
-import constant
+from core import constant
 
 
 class MapGame:
@@ -10,7 +9,7 @@ class MapGame:
     _path_name = ""
     # affecte implémentation PYGAME par defaut
     _map_type = constant.PYGAME_TYPE
-    # text array that represents the race pver the map
+    # text array that represents the race over the map
     _map_content = []
     # computed height
     _height_map = 0

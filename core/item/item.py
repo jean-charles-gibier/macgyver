@@ -1,5 +1,5 @@
 ''' item and personages description '''
-import constant
+from core import constant
 
 
 class Item:
@@ -12,6 +12,11 @@ class Item:
         self.value_x = pos_x * constant.UNIT_SIZE
         self.value_y = pos_y * constant.UNIT_SIZE
         self.img_file = img_file
-#        self.image = pygame.image.load(self.img_file).convert_alpha()
         self.image = None
 
+    def exclude(self, pos):
+        ''' Eclude an item or a perso and place it in footer area '''
+        self.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
+        self.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + \
+                       ((constant.UNIT_SIZE + 10) * pos)
+        self.img_file = ""

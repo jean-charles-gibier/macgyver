@@ -1,5 +1,5 @@
-import constant
-from item import Item
+from core import constant
+from core.item.item import Item
 
 
 class Perso(Item):
