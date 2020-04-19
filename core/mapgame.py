@@ -1,8 +1,6 @@
 # coding: utf-8
-import pygame
-# from pygame.locals import *
 import os
-import constant
+from core import constant
 
 
 class MapGame:
@@ -11,7 +9,7 @@ class MapGame:
     _path_name = ""
     # affecte implémentation PYGAME par defaut
     _map_type = constant.PYGAME_TYPE
-    # text array that represents the race pver the map
+    # text array that represents the race over the map
     _map_content = []
     # computed height
     _height_map = 0
@@ -25,10 +23,8 @@ class MapGame:
     _possible_path = []
 
     def __init__(self, path_name):
-        """ init test if path name exists """
-        self._path_name = path_name
         # verifie la présence du fichier carte
-        self._check_path_name()
+        self._check_path_name(path_name)
         # lit la carte
         self._read_map()
         # repere les coord. x,y accessibles au deplacement
@@ -101,13 +97,17 @@ class MapGame:
         """ getter xy_needle  """
         return self._possible_path
 
-    def _check_path_name(self):
+    def _check_path_name(self, path_name):
         """ check if path_name is a valid resource"""
-        if (os.path.exists(self._path_name) == False):
-            if (os.path.exists("resources/" + self._path_name) is False):
-                raise (Exception("File " + self._path_name + " : map not accessible"))
-            else:
-                self._path_name = "resources/" + self._path_name
+        map_path = constant.RESOURCE_PATH
+        local_path = os.path.dirname(os.path.realpath(__file__))
+        data_file = os.path.join(local_path, map_path, path_name)
+
+        if os.path.exists(data_file) is False:
+            raise (Exception("File " + data_file + " : map not accessible"))
+        else:
+            """ init test if path name exists """
+            self._path_name = data_file
 
     def _find_path_course(self):
         """ fill an array of tuples (x,y) that indicates the allowed path """
@@ -137,13 +137,13 @@ class MapGame:
     def _build_sample_path_(self, curr_coord, found_coord):
         """  try to find at least one path from start to end """
         # on arrete de chercher si on est déjà passé par cette coordonnée
-        if (curr_coord in found_coord):
+        if curr_coord in found_coord:
             return None
         # on arrete de chercher si la coordonnée n'est pas selectionable
-        if (curr_coord not in self._path_course):
+        if curr_coord not in self._path_course:
             return None
         # si on tombe sur la case d'arrrivée => c'est gagné on renvoie le parcours
-        if (curr_coord == self.xy_end_point):
+        if curr_coord == self.xy_end_point:
             found_coord.append(curr_coord)
             return found_coord
 
@@ -161,28 +161,3 @@ class MapGame:
                 return res
 
         return None
-
-    def read_map(self, map_name):
-        """Check and read content of map."""
-        map_path = constant.RESOURCE_PATH
-        local_path = os.path.dirname(os.path.realpath(__file__))
-        data_file = os.path.join(local_path, map_path, map_name)
-        map_description = MapGame(data_file)
-        return map_description
-
-    def draw_map(self, fenetre):
-        """draw map into a window."""
-        mur = pygame.image.load(constant.IMG_WALL).convert()
-        sol = pygame.Surface((constant.UNIT_SIZE, constant.UNIT_SIZE))
-
-        y_unit = 0
-        for raw in self.map_content:
-            x_raw = 0
-            for unit in raw:
-                if unit == '#':
-                    fenetre.blit(mur, (x_raw, y_unit))
-                else:
-                    fenetre.blit(sol, (x_raw, y_unit))
-                x_raw = x_raw + constant.UNIT_SIZE
-            y_unit = y_unit + constant.UNIT_SIZE
-        return

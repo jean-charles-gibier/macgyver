@@ -1,10 +1,4 @@
-import sys
-
-sys.path.append('..')
-sys.path.append('.')
-
-import mapgame
-import constant
+from core import constant, mapgame
 
 
 def test_something():

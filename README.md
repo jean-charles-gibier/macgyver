@@ -10,6 +10,8 @@ optional arguments:
   -h, --help            show this help message and exit
   -d DATAFILE, --datafile DATAFILE.TXT
                         file containing map of labyrinth
+  -i {Graphic,Text}, --interface {Graphic,Text}
+                        Display interface : 'text' or 'graphic'
 ````
 # fonctionalités
 Les fonctionalités requise pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
@@ -53,12 +55,19 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple2.png)
 
+
+##Mode de fonctionnement rudimentaire :
+
+Pour démontrer le bon découplage des modules "vue" et "controle" dans la conception, le programme
+implémente un mode "Text" proposant un animation "old terminal".
+Ce mode reprend les mêmes principes de jeu en remplacant les sprites par des caractères les symbolisant.
+
+Exemple :
+
+![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple3.png)
+
+
 # TODO
-L'import de pygame se fait dans 3 modules distincts macgyver.py item.py et mapgame.py
- => il faut unifier les imports dans un seul module et découpler le dessin de la map de pygame.
-
-Ajouter une abstraction/implementation pour par exemple utiliser une interface textuelle
-
 generer un parcours aléatoire (plateau 15 x 15 par defaut)
 
 ajouter animation
