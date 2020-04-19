@@ -1,7 +1,6 @@
 # coding: utf-8
-import pygame
 import os
-import constant
+from core import constant
 
 
 class MapGame:

@@ -1,5 +1,5 @@
 ''' item and personages description '''
-import constant
+from core import constant
 
 
 class Item:
@@ -18,5 +18,5 @@ class Item:
         ''' Eclude an item or a perso and place it in footer area '''
         self.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
         self.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) + \
-                        ((constant.UNIT_SIZE + 10) * pos)
+                       ((constant.UNIT_SIZE + 10) * pos)
         self.img_file = ""

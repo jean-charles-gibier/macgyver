@@ -1,5 +1,4 @@
-import mapgame
-import constant
+from core import constant, mapgame
 
 
 def test_something():

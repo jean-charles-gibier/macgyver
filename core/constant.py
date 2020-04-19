@@ -1,5 +1,6 @@
 ''' Constants & paths'''
-RESOURCE_PATH = "resources"
+import  os
+RESOURCE_PATH =os.path.join(os.getcwd(), "resources")
 
 # size
 UNIT_SIZE = 20

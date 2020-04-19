@@ -1,12 +1,9 @@
-from pprint import pprint
-
-import constant
-from dal import Dal
+from core import constant
+from core.dal.dal import Dal
 import logging as lg
 logger = lg.getLogger(__name__)
-from time import sleep
 from pygame import event
-from pygame.constants import (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
+from pygame.constants import (KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
 
 
 class DalText(Dal):
@@ -31,7 +28,7 @@ class DalText(Dal):
         switcher = {
             constant.IMG_MCGYVER: "M",
             constant.IMG_GARDIEN: "G",
-            constant.IMG_AIGUILLE:"A",
+            constant.IMG_AIGUILLE: "A",
             constant.IMG_ETHER: "E",
             constant.IMG_TUBE: "T"
         }
@@ -154,10 +151,15 @@ screen."""
 
 class _GetchUnix:
     def __init__(self):
-        import tty, sys
+        pass
 
     def __call__(self):
-        import sys, tty, termios
+        try:
+            import sys, tty, termios
+        except ImportError as error:
+            print(error.__class__.__name__ + ": ignored ")
+            return ''
+
         fd = sys.stdin.fileno()
         old_settings = termios.tcgetattr(fd)
         try:

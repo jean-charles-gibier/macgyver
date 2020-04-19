@@ -2,13 +2,11 @@
 # coding: utf-8
 
 """This script starts mc Guyver labyrinth parameter is :  file_name (discribing map)."""
-import pprint
 
-from mapgame import MapGame
-from perso import Perso
-from item import Item
-import utils
-import constant
+from core.mapgame import MapGame
+from core.item.perso import Perso
+from core.item.item import Item
+from core import constant, utils
 import random
 from tkinter import *
 from tkinter import messagebox
@@ -16,6 +14,7 @@ import logging as lg
 
 logger = lg.getLogger(__name__)
 
+MODULE_DAL_PATH = 'core/dal'
 
 def dispatch_items(display, fenetre, map):
     """" dispatch the different items in the play area taking care
@@ -53,6 +52,8 @@ def main():
     lg.info('Display interface : %s', args.interface)
 
     # implementation Text or Graphic
+    # Pas trouvé d'autre solution pour definir le chemin des modules dynamiques
+    sys.path.append(MODULE_DAL_PATH)
     class_name = "Dal"+interface_type
     module_display = class_name.lower()
     lg.info('Implementation : %s', module_display)
@@ -87,6 +88,8 @@ def main():
         for event in display.event_get():
             # pprint.pprint(event)
             # Boucle event
+            if event == None:
+                continue
             if display.event_quit(event) == True:
                 continuer = 0
             elif display.event_keydown_escape(event) == True :
