@@ -58,7 +58,7 @@
     |       tube_plastique.png                     |
     |       tube_plastique2.png                    |
     |                                              |
-    +---tests                                      |  tests (tentative)
+    +---tests                                      |  tests (ebauche)
             pomme.png                              |
             raw_test.py                            |
             test_log.py                            |
