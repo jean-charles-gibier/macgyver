@@ -10,6 +10,8 @@ from item import Item
 import utils
 import constant
 import random
+from tkinter import *
+from tkinter import messagebox
 import logging as lg
 
 logger = lg.getLogger(__name__)
@@ -73,11 +75,11 @@ def main():
     while continuer:
         display.draw_map(fenetre, map_game.map_content)
         display.draw_footer(fenetre)
-        display.draw_item(fenetre, mcGyver)
         display.draw_item(fenetre, guard)
         display.draw_item(fenetre, needle)
         display.draw_item(fenetre, ether)
         display.draw_item(fenetre, tube)
+        display.draw_item(fenetre, mcGyver)
         display.clock()
         display.flip()
 
@@ -102,37 +104,35 @@ def main():
             if mcGyver.compare_pos(guard):
                 lg.info('On rencontre le garde ')
                 if len(collected_items) == 3:
+                    guard.exclude(4)
                     lg.info('Ok Garde endormi ')
-                    guard.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                    guard.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) +\
-                                    ((constant.UNIT_SIZE + 10) * 4)
                 else:
                     lg.info('You loose !')
+                    Tk().wm_withdraw()
+                    messagebox.showinfo('You loose !', 'OK')
+                    continuer = 0
 
             elif mcGyver.compare_pos(needle):
-                lg.info('On rencontre l''aiguille ')
+                lg.info('On rencontre l\'aiguille ')
                 collected_items.append(needle)
-                needle.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                needle.value_x = (constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2
+                needle.exclude(0)
 
             elif mcGyver.compare_pos(ether):
                 collected_items.append(ether)
-                lg.info('On rencontre la bouteille d''ether ')
-                ether.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                ether.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) +\
-                                (constant.UNIT_SIZE + 10)
+                lg.info('On rencontre la bouteille d\'ether ')
+                ether.exclude(1)
 
             elif mcGyver.compare_pos(tube):
                 collected_items.append(tube)
                 lg.info('On rencontre le tube ')
-                tube.value_y = constant.UNIT_SIZE * constant.UNITS_PER_ROW
-                tube.value_x = ((constant.UNIT_SIZE * constant.UNITS_PER_ROW) // 2) +\
-                               ((constant.UNIT_SIZE + 10) * 2)
+                tube.exclude(2)
 
             elif mcGyver.compare_pos((map_game.xy_end_point[0], map_game.xy_end_point[1])):
                 if len(collected_items) == 3:
                     lg.info('You win !')
-
+                    Tk().wm_withdraw()
+                    messagebox.showinfo('You win !', 'OK')
+                    continuer = 0
 
 if __name__ == "__main__":
     main()

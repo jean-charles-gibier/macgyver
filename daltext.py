@@ -10,9 +10,15 @@ from pygame.constants import (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_
 
 
 class DalText(Dal):
+
+    # local text array that copy content of text map
+    _map_cache = []
+
     """ PyGame implementation """
     def init(self, map_game):
         """inteface intialization ne sert pas à gd chose en mode texte"""
+        # we copy the map 2 the cache
+        self._map_cache = map_game.map_content
         return map_game.map_content
 
     def load_item(self, fenetre, item):
@@ -29,36 +35,28 @@ class DalText(Dal):
             constant.IMG_ETHER: "E",
             constant.IMG_TUBE: "T"
         }
-
+        # identify perso/item by img filename :-(
         letter = switcher.get(item.img_file, " ")
-        # clean the older position of item
+
+        # clean old item
         y_unit = 0
-        for raw in fenetre:
-            fenetre[y_unit] = raw.replace(letter, ' ')
+        for raw in self._map_cache:
+            self._map_cache[y_unit] = raw.replace(letter, ' ')
             y_unit = y_unit + 1
+
         # place the new one
-        l = list(fenetre[item.case_y])
+        l = list(self._map_cache[item.case_y])
         l[item.case_x] = letter
-        fenetre[item.case_y] = "".join(l)
+        self._map_cache[item.case_y] = "".join(l)
 
 
     def draw_map(self, fenetre, map_content):
+        # in text mode we just clear the screen
+        # the map will be shown at flip step
         import os
         from sys import platform
         clear = lambda: os.system((platform == "win32" and 'cls') or 'clear')  #  Linux / windows  System
         clear()
-
-        print('')
-        y_unit = 0
-        for raw in map_content:
-            x_raw = 0
-            for unit in raw:
-                print(unit, end='')
-                x_raw = x_raw + 1
-            y_unit = y_unit + 1
-        print('')
-        print('')
-        return
 
     def draw_footer(self, fenetre):
         pass
@@ -96,29 +94,32 @@ class DalText(Dal):
                 elif value == 'D':
                     obj_ret = event.Event(KEYDOWN, {'key': 276, 'mod': 0, 'scancode': 100, 'window': None})
                 else:
-                    print('<<<<----')
-                    pprint(value)
-                    print('<<<<----')
+                    pass
             elif value == '\x1b':
                 obj_ret = event.Event(KEYDOWN, {'unicode': '\x1b', 'key': 27, 'mod': 0, 'scancode': 9, 'window': None})
             else:
-                print('[----')
-                pprint(value)
-                print('[----')
-
+                pass
         else:
-        # sequences inconnues
-            print('>----')
-            pprint(value)
-            print('>----')
+            # sequences inconnues
+            pass
 
         return [obj_ret]
 
     def clock(self):
-        sleep(0.1)
+        # sleep(0.1)
+        pass
 
     def flip(self):
-        pass
+        print('')
+        y_unit = 0
+        for raw in self._map_cache:
+            x_raw = 0
+            for unit in raw:
+                print(unit, end='')
+                x_raw = x_raw + 1
+            y_unit = y_unit + 1
+        print('')
+        print('')
 
     def event_quit(self, event):
         pass

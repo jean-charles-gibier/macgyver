@@ -24,6 +24,9 @@ class DalGraphic(Dal):
             fenetre.fill((200, 200, 200))
             return fenetre
 
+    def __del__(self):
+        pygame.quit()
+
     def draw_map(self, fenetre, map_content):
         """draw map into a window."""
         mur = pygame.image.load(constant.IMG_WALL).convert()
