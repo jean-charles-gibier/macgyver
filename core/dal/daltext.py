@@ -1,9 +1,9 @@
 from core import constant
 from core.dal.dal import Dal
 import logging as lg
-logger = lg.getLogger(__name__)
 from pygame import event
 from pygame.constants import (KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
+logger = lg.getLogger(__name__)
 
 
 class DalText(Dal):
@@ -42,17 +42,19 @@ class DalText(Dal):
             y_unit = y_unit + 1
 
         # place the new one
-        l = list(self._map_cache[item.case_y])
-        l[item.case_x] = letter
-        self._map_cache[item.case_y] = "".join(l)
-
+        temp_raw = list(self._map_cache[item.case_y])
+        temp_raw[item.case_x] = letter
+        self._map_cache[item.case_y] = "".join(temp_raw)
 
     def draw_map(self, fenetre, map_content):
         # in text mode we just clear the screen
         # the map will be shown at flip step
         import os
         from sys import platform
-        clear = lambda: os.system((platform == "win32" and 'cls') or 'clear')  #  Linux / windows  System
+        #  Linux / windows  System
+
+        def clear():
+            return os.system((platform == "win32" and 'cls') or 'clear')
         clear()
 
     def draw_footer(self, fenetre):
@@ -66,34 +68,56 @@ class DalText(Dal):
         if value == b'\x1b':
             value = getch()
             if value == b'\x1b':
-                obj_ret = event.Event(KEYDOWN, {'unicode': '\x1b', 'key': 27, 'mod': 0, 'scancode': 9, 'window': None})
+                obj_ret = event.Event(KEYDOWN,
+                                      {'unicode': '\x1b', 'key': 27,
+                                       'mod': 0, 'scancode': 9,
+                                       'window': None})
         elif value == b'\xe0':
             value = getch()
             if value == b'P':
-                obj_ret = event.Event(KEYDOWN, {'key': 274, 'mod': 0, 'scancode': 104, 'window': None})
+                obj_ret = event.Event(KEYDOWN,
+                                      {'key': 274, 'mod': 0,
+                                       'scancode': 104, 'window': None})
             elif value == b'H':
-                obj_ret = event.Event(KEYDOWN, {'key': 273, 'mod': 0, 'scancode': 98, 'window': None})
+                obj_ret = event.Event(KEYDOWN,
+                                      {'key': 273, 'mod': 0,
+                                       'scancode': 98, 'window': None})
             elif value == b'K':
-                obj_ret = event.Event(KEYDOWN, {'key': 276, 'mod': 0, 'scancode': 100, 'window': None})
+                obj_ret = event.Event(KEYDOWN,
+                                      {'key': 276, 'mod': 0,
+                                       'scancode': 100, 'window': None})
             elif value == b'M':
-                obj_ret = event.Event(KEYDOWN, {'key': 275, 'mod': 0, 'scancode': 102, 'window': None})
+                obj_ret = event.Event(KEYDOWN,
+                                      {'key': 275, 'mod': 0,
+                                       'scancode': 102, 'window': None})
         elif value == '\x1b':
             # sequences Xterm / ansi
             value = getch()
             if value == '[':
                 value = getch()
                 if value == 'A':
-                    obj_ret = event.Event(KEYDOWN, {'key': 273, 'mod': 0, 'scancode': 98, 'window': None})
+                    obj_ret = event.Event(KEYDOWN,
+                                          {'key': 273, 'mod': 0,
+                                           'scancode': 98, 'window': None})
                 elif value == 'B':
-                    obj_ret = event.Event(KEYDOWN, {'key': 274, 'mod': 0, 'scancode': 104, 'window': None})
+                    obj_ret = event.Event(KEYDOWN,
+                                          {'key': 274, 'mod': 0,
+                                           'scancode': 104, 'window': None})
                 elif value == 'C':
-                    obj_ret = event.Event(KEYDOWN, {'key': 275, 'mod': 0, 'scancode': 102, 'window': None})
+                    obj_ret = event.Event(KEYDOWN,
+                                          {'key': 275, 'mod': 0,
+                                           'scancode': 102, 'window': None})
                 elif value == 'D':
-                    obj_ret = event.Event(KEYDOWN, {'key': 276, 'mod': 0, 'scancode': 100, 'window': None})
+                    obj_ret = event.Event(KEYDOWN,
+                                          {'key': 276, 'mod': 0,
+                                           'scancode': 100, 'window': None})
                 else:
                     pass
             elif value == '\x1b':
-                obj_ret = event.Event(KEYDOWN, {'unicode': '\x1b', 'key': 27, 'mod': 0, 'scancode': 9, 'window': None})
+                obj_ret = event.Event(KEYDOWN,
+                                      {'unicode': '\x1b', 'key': 27,
+                                       'mod': 0, 'scancode': 9,
+                                       'window': None})
             else:
                 pass
         else:
@@ -136,6 +160,7 @@ class DalText(Dal):
     def event_keydown_down(self, event):
         return event.type == KEYDOWN and event.key == K_DOWN
 
+
 class _Getch:
     """Gets a single character from standard input.  Does not echo to the
 screen."""
@@ -149,13 +174,16 @@ screen."""
     def __call__(self):
         return self.impl()
 
+
 class _GetchUnix:
     def __init__(self):
         pass
 
     def __call__(self):
         try:
-            import sys, tty, termios
+            import sys
+            import tty
+            import termios
         except ImportError as error:
             print(error.__class__.__name__ + ": ignored ")
             return ''
@@ -169,6 +197,7 @@ class _GetchUnix:
             termios.tcsetattr(fd, termios.TCSADRAIN, old_settings)
         return ch
 
+
 class _GetchWindows:
     def __init__(self):
         import msvcrt
@@ -177,7 +206,8 @@ class _GetchWindows:
         import msvcrt
         return msvcrt.getch()
 
-class FakeEvent :
-   def __init__( self, key_code):
-       self.type = KEYDOWN
-       self.key = key_code
+
+class FakeEvent:
+    def __init__(self, key_code):
+        self.type = KEYDOWN
+        self.key = key_code

@@ -1,11 +1,11 @@
 from core.dal.dal import Dal
 import logging as lg
 from core import constant
-
-logger = lg.getLogger(__name__)
-from pygame.constants import (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
+from pygame.constants import \
+    (QUIT, KEYDOWN, K_ESCAPE, K_RIGHT, K_LEFT, K_UP, K_DOWN)
 from pygame.rect import Rect
 import pygame
+logger = lg.getLogger(__name__)
 
 
 class DalGraphic(Dal):
@@ -14,8 +14,10 @@ class DalGraphic(Dal):
         """inteface intialization"""
         if mapgame.map_type == constant.PYGAME_TYPE:
             pygame.init()
-            lg.info('Taille de la fenetre : %d X %d', mapgame.length * constant.UNIT_SIZE,
-                    (mapgame.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE)
+            lg.info('Taille de la fenetre : %d X %d',
+                    mapgame.length * constant.UNIT_SIZE,
+                    (mapgame.height * constant.UNIT_SIZE) +
+                    constant.FOOTER_SIZE)
             fenetre = pygame.display.set_mode(
                 (mapgame.length * constant.UNIT_SIZE,
                  (mapgame.height * constant.UNIT_SIZE) + constant.FOOTER_SIZE))
@@ -53,8 +55,8 @@ class DalGraphic(Dal):
     def draw_item(self, fenetre, item):
         """display item """
         fenetre.blit(item.image.subsurface(Rect(
-            10, 10, constant.UNIT_SIZE, constant.UNIT_SIZE)), (item.value_x, item.value_y))
-
+            10, 10, constant.UNIT_SIZE, constant.UNIT_SIZE)),
+            (item.value_x, item.value_y))
 
     def draw_footer(self, fenetre):
         font = pygame.font.Font('freesansbold.ttf', 16)

@@ -142,7 +142,8 @@ class MapGame:
         # on arrete de chercher si la coordonnée n'est pas selectionable
         if curr_coord not in self._path_course:
             return None
-        # si on tombe sur la case d'arrrivée => c'est gagné on renvoie le parcours
+        # si on tombe sur la case d'arrrivée
+        # c'est gagné on renvoie le parcours
         if curr_coord == self.xy_end_point:
             found_coord.append(curr_coord)
             return found_coord
@@ -151,13 +152,17 @@ class MapGame:
         for coord in self._path_course:
             if coord == curr_coord:
                 found_coord.append(coord)
-                res = self._build_sample_path_((coord[0] + 1, coord[1]), found_coord)
+                res = self._build_sample_path_(
+                    (coord[0] + 1, coord[1]), found_coord)
                 if res is None:
-                    res = self._build_sample_path_((coord[0] - 1, coord[1]), found_coord)
+                    res = self._build_sample_path_(
+                        (coord[0] - 1, coord[1]), found_coord)
                 if res is None:
-                    res = self._build_sample_path_((coord[0], coord[1] + 1), found_coord)
+                    res = self._build_sample_path_(
+                        (coord[0], coord[1] + 1), found_coord)
                 if res is None:
-                    res = self._build_sample_path_((coord[0], coord[1] - 1), found_coord)
+                    res = self._build_sample_path_(
+                        (coord[0], coord[1] - 1), found_coord)
                 return res
 
         return None

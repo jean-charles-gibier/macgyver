@@ -1,9 +1,11 @@
 import abc
 
+
 class Dal(abc.ABC):
-    """Dal stands for display abstraction layer 
-    the purpose is to release the relationships between 'control' modules  and  'pygame'
-    and eventually to allow other 'view' implementation."""
+    """Dal stands for display abstraction layer
+    the purpose is to release the relationships between
+     'control' modules  and  'pygame' and eventually
+     to allow other 'view' implementation."""
     def __init__(self):
         super().__init__()
 

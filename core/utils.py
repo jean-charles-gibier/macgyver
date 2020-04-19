@@ -1,5 +1,4 @@
 import argparse
-from enum import Enum
 from sys import stdout
 import logging as lg
 logger = lg.getLogger(__name__)
@@ -21,10 +20,10 @@ def set_logger():
     """set log environement."""
     # Set logging stuff
     fh = lg.StreamHandler(stdout)
-    formatter = lg.Formatter('%(asctime)s - %(levelname)s - %(filename)s - %(funcName)s - %(message)s')
+    formatter = lg.Formatter('%(asctime)s - %(levelname)s -'
+                             ' %(filename)s - %(funcName)s - %(message)s')
     fh.setFormatter(formatter)
     logger = lg.getLogger()
 
     logger.addHandler(fh)
     logger.setLevel(lg.DEBUG)
-
