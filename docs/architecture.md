@@ -4,35 +4,34 @@
 +---macgyver                                       | Racine Projet
     |   .gitignore                                 |
     |   macgyver.py                                | Main program
-    |   pylintrc                                   | ressouces validation pylint
-    |   README.md                                  | 
-    |   requirements.txt                           |
-    |   __init__.py                                |
+    |   pylintrc                                   | Ressouces validation pylint
+    |   README.md                                  | Ce fichier
+    |   requirements.txt                           | Listes des dépendances
     |                                              |
-    +---core                                       |
-    |   |   constant.py                            |
-    |   |   mapgame.py                             |
-    |   |   utils.py                               |
+    +---core                                       | Modules du projet
+    |   |   constant.py                            | Fchier des constantes 
+    |   |   mapgame.py                             | Objet MapGame definissant la carte du jeu
+    |   |   utils.py                               | Utilitaires
     |   |   __init__.py                            |
     |   |                                          |
-    |   +---dal                                    |
-    |   |       dal.py                             |
-    |   |       dalgraphic.py                      |
-    |   |       daltext.py                         |
+    |   +---dal                                    | dal => pour Display Abstract Layer
+    |   |       dal.py                             | classe abstraite dal
+    |   |       dalgraphic.py                      | implementation graphique de dal
+    |   |       daltext.py                         | implementation texte de dal
     |   |       __init__.py                        |
     |   |                                          |
-    |   +---item                                   |
-    |           item.py                            |
-    |           perso.py                           |
+    |   +---item                                   | description des perso et objets du jeu
+    |           item.py                            | classe mere
+    |           perso.py                           | Perso (est un item qui se déplace)
     |           __init__.py                        |
     |                                              |
-    +---docs                                       |
+    +---docs                                       | ressources readme
     |       Exemple1.png                           |
     |       Exemple2.png                           |
     |       Exemple3.png                           |
     |       usage.txt                              |
     |                                              |
-    +---resources                                  |
+    +---resources                                  | Sprites / images etc.
     |       aiguille.png                           |
     |       aiguille2.png                          |
     |       big_rooms.txt                          |
@@ -59,7 +58,7 @@
     |       tube_plastique.png                     |
     |       tube_plastique2.png                    |
     |                                              |
-    +---tests                                      |
+    +---tests                                      |  tests (tentative)
             pomme.png                              |
             raw_test.py                            |
             test_log.py                            |
