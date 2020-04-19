@@ -67,6 +67,10 @@ Exemple :
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple3.png)
 
 
+## Architecture 
+
+L'architecture (ok c'est un grand mot) de ce projet est [définie ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/architecture.md) 
+
 # TODO
 generer un parcours aléatoire (plateau 15 x 15 par defaut)
 
