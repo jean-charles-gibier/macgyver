@@ -2,6 +2,8 @@
 # coding: utf-8
 
 """This script starts mc Guyver labyrinth parameter is :  file_name (discribing map)."""
+import pprint
+
 from mapgame import MapGame
 from perso import Perso
 from item import Item
@@ -69,7 +71,7 @@ def main():
     continuer = 1
 
     while continuer:
-#        display.draw_map(fenetre, map_game.map_content)
+        display.draw_map(fenetre, map_game.map_content)
         display.draw_footer(fenetre)
         display.draw_item(fenetre, mcGyver)
         display.draw_item(fenetre, guard)
@@ -81,7 +83,7 @@ def main():
 
 
         for event in display.event_get():
-
+            # pprint.pprint(event)
             # Boucle event
             if display.event_quit(event) == True:
                 continuer = 0
