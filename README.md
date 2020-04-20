@@ -73,7 +73,7 @@ Exemple :
 ```` 
  -d DATAFILE, --datafile DATAFILE.TXT<br>
 ````
-Le bon découplage des modules "modele" et "controleur" est quand à lui implicite. Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données serait à priori facilement substituable.
+Le bon découplage des modules "modele" et "controleur" est quand à lui implicite. Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données lui serait (à priori :grimacing:) facilement substituable.
 
 
 ## Architecture 
