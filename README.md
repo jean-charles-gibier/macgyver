@@ -76,10 +76,13 @@ L'architecture (ok c'est un grand mot) de ce projet est [définie ICI](https://g
 La description des problèmes / solutions / contournements dans la conception / réalisation de ce projet est [décrite ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/P3_02_démarche.docx) 
 
 
-# TODO
+## TODO
+
+sugestions pour uhne nouvelle version:
+
 generer un parcours aléatoire (plateau 15 x 15 par defaut)
 
-ajouter animation
+ajouter animation des personages (gare  et Mc Gyver) 2 ou 3 sprites => 1 par rafraichissement en alternance 
 
 gerer les evenements clavier par listener
 
