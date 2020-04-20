@@ -71,6 +71,11 @@ Exemple :
 
 L'architecture (ok c'est un grand mot) de ce projet est [définie ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/architecture.md) 
 
+## Demarche
+
+La description des problèmes / solutions / contournements dans la conception / réalisation de ce projet est [décrite ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/P3_02_démarche.docx) 
+
+
 # TODO
 generer un parcours aléatoire (plateau 15 x 15 par defaut)
 
