@@ -87,12 +87,8 @@ La description des problèmes / solutions / contournements dans la conception / 
 
 ## TODO
 
-sugestions pour uhne nouvelle version:
-
-generer un parcours aléatoire (plateau 15 x 15 par defaut)
-
-ajouter animation des personages (gare  et Mc Gyver) 2 ou 3 sprites => 1 par rafraichissement en alternance 
-
-gerer les evenements clavier par listener
-
-animer le garde
+Sugestions pour une nouvelle version:
+- Générer un parcours aléatoire (plateau 15 x 15 par defaut)
+- Ajouter animation des personages (gare  et Mc Gyver) 2 ou 3 sprites => 1 par rafraichissement en alternance 
+- Gérer les evenements clavier par listener
+- Afficher explicitement les cases "départ" et "arrivée" (nouvelle clzsse heritée de items => item non récupérable)
