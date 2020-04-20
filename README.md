@@ -82,7 +82,7 @@ L'architecture (ok c'est un grand mot) de ce projet est [définie ICI](https://g
 
 ## Demarche
 
-La description des problèmes / solutions / contournements dans la conception / réalisation de ce projet est [décrite ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/P3_02_démarche.docx) 
+La description des problèmes / solutions / contournements dans la conception / réalisation de ce projet est [décrite ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/P03_02_Demarche.pdf) 
 
 
 ## TODO
