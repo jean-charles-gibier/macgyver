@@ -56,15 +56,24 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple2.png)
 
 
-## Mode de fonctionnement rudimentaire :
+## Demonstration du respect du motif [MVC](https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur)
 
-Pour démontrer le bon découplage des modules "vue" et "controle" dans la conception, le programme
-implémente un mode "Text" proposant un animation "old terminal".
-Ce mode reprend les mêmes principes de jeu en remplacant les sprites par des caractères les symbolisant.
+````
+-i {Graphic,Text}, --interface {Graphic,Text}<br>
+````
+Le bon découplage des modules "modele", "vue" et "controleur" est simplement mis en oeuvre dans les options de démarrage du programme :<br>
+Le bon découplage des modules "vue" et "controleur" est mis en oeuvre dans l'implémentation d'un mode "Text" proposant un animation "old school" dans le style terminal TTY.<br>
+Ce mode reprend les principes du jeu "version graphique" en remplacant les sprites par des caractères symboliques et en réaffichant la matrice constituée 15x15 à chaque appui sur le clavier.<br>
 
 Exemple :
 
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple3.png)
+
+
+```` 
+ -d DATAFILE, --datafile DATAFILE.TXT<br>
+````
+Le bon découplage des modules "modele" et "controleur" est quand à lui implicite. Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données serait à priori facilement substituable.
 
 
 ## Architecture 
