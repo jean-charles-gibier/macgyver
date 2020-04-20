@@ -141,10 +141,14 @@ def main():
                                       map_game.xy_end_point[1])):
                 if len(collected_items) == 3:
                     lg.info('You win !')
+                    # on redessine une derniere fois la fenetre du jeu
+                    # pas trouvé de solution élégante => a étudiers
+                    display.draw_map(fenetre, map_game.map_content)
+                    display.draw_item(fenetre, mcGyver)
+                    display.flip()
                     Tk().wm_withdraw()
                     messagebox.showinfo('Congratulations', 'You win !')
                     continuer = 0
-
 
 if __name__ == "__main__":
     main()

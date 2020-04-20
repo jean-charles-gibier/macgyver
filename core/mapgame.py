@@ -31,6 +31,8 @@ class MapGame:
         # on va déposer les items dans l'ordre du parcours
         # par ex : placer le tube avant le garde
         self._possible_path = self._build_sample_path_(self.xy_start_point, [])
+        if self._possible_path is None:
+            raise (Exception("File " + path_name + " : map content error"))
 
     @property
     def path_name(self):
@@ -65,32 +67,32 @@ class MapGame:
     @property
     def xy_start_point(self):
         """ getter xy_start_point """
-        return self._xy_items['S']
+        return self._xy_items.get('S', (0,0))
 
     @property
     def xy_end_point(self):
         """ getter xy_end_point """
-        return self._xy_items['E']
+        return self._xy_items.get('E', (0,0))
 
     @property
     def xy_guardian(self):
         """ getter xy_guardian """
-        return self._xy_items['G']
+        return self._xy_items.get('G', (0,0))
 
     @property
     def xy_tube(self):
         """ getter xy_tube """
-        return self._xy_items['T']
+        return self._xy_items.get('T', (0,0))
 
     @property
     def xy_syringe(self):
         """ getter xy_syringe """
-        return self._xy_items['Y']
+        return self._xy_items.get('Y', (0,0))
 
     @property
     def xy_needle(self):
         """ getter xy_needle  """
-        return self._xy_items['N']
+        return self._xy_items.get('N', (0,0))
 
     @property
     def possible_path(self):
@@ -114,7 +116,7 @@ class MapGame:
         y_unit = 0
         for raw in self.map_content:
             x_raw = 0
-            for unit in raw.rstrip():
+            for unit in raw.rstrip('\n\r'):
                 if unit != '#':
                     self.path_course.append((x_raw, y_unit))
                     if unit != ' ':
@@ -128,11 +130,11 @@ class MapGame:
             with open(self._path_name) as f:
                 self._map_content = f.readlines()
             self._height_map = len(self._map_content)
-            self._length_map = len(self._map_content[0].rstrip())
+            self._length_map = len(self._map_content[0].rstrip('\n\r'))
             self._find_path_course()
         except IOError:
             # Log !!
-            raise (Exception("File map not accessible"))
+            raise (Exception("File " + self._path_name + " : map not readable"))
 
     def _build_sample_path_(self, curr_coord, found_coord):
         """  try to find at least one path from start to end """

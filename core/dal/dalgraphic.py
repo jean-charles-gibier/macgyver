@@ -45,7 +45,7 @@ class DalGraphic(Dal):
                     fenetre.blit(sol, (x_raw, y_unit))
                 x_raw = x_raw + constant.UNIT_SIZE
             y_unit = y_unit + constant.UNIT_SIZE
-        return
+
 
     def load_item(self, fenetre, item):
         """load item
