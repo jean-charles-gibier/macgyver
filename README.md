@@ -16,8 +16,8 @@ optional arguments:
 # fonctionalités
 Les fonctionalités requises pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
 
-En exploitant l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
-de 15x15 caractères séparés par des "retour chariot". Chaque ligne du texte représente une ligne du jeu .<br>
+Pour exploiter l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
+de 15x15 caractères séparés par des "retour chariot". Chaque ligne de ce fichier représente une ligne du jeu .<br>
 Dans cette ligne, chaque caractère symbolise un des éléments suivants (au choix) :
 - une case de jeu standard (char ' ' espace ou Ascii 0x20)
 - un élément de mur (char '#' hastag)
