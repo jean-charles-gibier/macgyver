@@ -14,19 +14,18 @@ optional arguments:
                         Display interface : 'text' or 'graphic'
 ````
 # fonctionalités
-Les fonctionalités requise pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
+Les fonctionalités requises pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
 
-En exploitant les services de l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
-de 15x15 caractères séparés par des "retour chariot". Chaque ligne du texte représente une ligne du jeu .<br>
-Chaque caractère de la ligne représentera un des éléments suivants au choix :
+Pour exploiter l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
+de 15x15 caractères séparés par des "retour chariot". Chaque ligne de ce fichier représente une ligne du jeu .<br>
+Dans cette ligne, chaque caractère symbolise un des éléments suivants (au choix) :
 - une case de jeu standard (char ' ' espace ou Ascii 0x20)
 - un élément de mur (char '#' hastag)
 - la case de départ (char 'S' )
 - la case d'arrivée' (char 'E' )
 
-Ce fichier est situé dans le repertoire 'resources'.
+Ce fichier texte est situé dans le repertoire 'resources'.
 Le programme interprète le plan du fichier et place 3 items (Aiguille, Tube, Ether) plus un personnage (Gardien), au hasard sur les cases accessibles du plan.<br>
-
 (les items seront disposés de manière à ne pas bloquer le jeu : le garde ne devra pas bloquer l'accès aux items à collecter)
 
 Exemple :
@@ -61,9 +60,9 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 ````
 -i {Graphic,Text}, --interface {Graphic,Text}<br>
 ````
-Le bon découplage des modules "modele", "vue" et "controleur" est simplement mis en oeuvre dans les options de démarrage du programme :<br>
-Le bon découplage des modules "vue" et "controleur" est mis en oeuvre dans l'implémentation d'un mode "Text" proposant un animation "old school" dans le style terminal TTY.<br>
-Ce mode reprend les principes du jeu "version graphique" en remplacant les sprites par des caractères symboliques et en réaffichant la matrice constituée 15x15 à chaque appui sur le clavier.<br>
+Le découplage des modules "modele", "vue" et "controleur" est mis en oeuvre dans les options de démarrage du programme :<br>
+L'option "-i Text" propose l'implémentation d'un mode "Text" avec une animation "old school" dans le style terminal TTY.<br>
+Ce mode reprend les principes du jeu "version graphique" en remplacant les sprites par des caractères symboliques et en réaffichant la matrice ainsi constituée 15x15 à chaque appui sur le clavier.<br>
 
 Exemple :
 
@@ -73,7 +72,8 @@ Exemple :
 ```` 
  -d DATAFILE, --datafile DATAFILE.TXT<br>
 ````
-Le bon découplage des modules "modele" et "controleur" est quand à lui implicite. Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données lui serait (à priori :grimacing:) facilement substituable.
+Le découplage des modules "modele" et "controleur" est quand à lui implicite :<br>
+Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données lui serait (à priori :grimacing:) facilement substituable.
 
 
 ## Architecture 
@@ -82,7 +82,7 @@ L'architecture (ok c'est un grand mot) de ce projet est [définie ICI](https://g
 
 ## Demarche
 
-La description des problèmes / solutions / contournements dans la conception / réalisation de ce projet est [décrite ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/P3_02_démarche.docx) 
+La description des problèmes / solutions / contournements dans la conception / réalisation de ce projet est [décrite ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/P03_02_Demarche.pdf) 
 
 
 ## TODO
