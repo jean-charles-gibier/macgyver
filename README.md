@@ -14,19 +14,18 @@ optional arguments:
                         Display interface : 'text' or 'graphic'
 ````
 # fonctionalités
-Les fonctionalités requise pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
+Les fonctionalités requises pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
 
-En exploitant les services de l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
+En exploitant l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
 de 15x15 caractères séparés par des "retour chariot". Chaque ligne du texte représente une ligne du jeu .<br>
-Chaque caractère de la ligne représentera un des éléments suivants au choix :
+Dans cette ligne, chaque caractère symbolise un des éléments suivants (au choix) :
 - une case de jeu standard (char ' ' espace ou Ascii 0x20)
 - un élément de mur (char '#' hastag)
 - la case de départ (char 'S' )
 - la case d'arrivée' (char 'E' )
 
-Ce fichier est situé dans le repertoire 'resources'.
+Ce fichier texte est situé dans le repertoire 'resources'.
 Le programme interprète le plan du fichier et place 3 items (Aiguille, Tube, Ether) plus un personnage (Gardien), au hasard sur les cases accessibles du plan.<br>
-
 (les items seront disposés de manière à ne pas bloquer le jeu : le garde ne devra pas bloquer l'accès aux items à collecter)
 
 Exemple :
