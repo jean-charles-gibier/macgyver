@@ -61,9 +61,9 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 ````
 -i {Graphic,Text}, --interface {Graphic,Text}<br>
 ````
-Le bon découplage des modules "modele", "vue" et "controleur" est simplement mis en oeuvre dans les options de démarrage du programme :<br>
-Le bon découplage des modules "vue" et "controleur" est mis en oeuvre dans l'implémentation d'un mode "Text" proposant un animation "old school" dans le style terminal TTY.<br>
-Ce mode reprend les principes du jeu "version graphique" en remplacant les sprites par des caractères symboliques et en réaffichant la matrice constituée 15x15 à chaque appui sur le clavier.<br>
+Le découplage des modules "modele", "vue" et "controleur" est mis en oeuvre dans les options de démarrage du programme :<br>
+L'option "-i Text" propose l'implémentation d'un mode "Text" avec une animation "old school" dans le style terminal TTY.<br>
+Ce mode reprend les principes du jeu "version graphique" en remplacant les sprites par des caractères symboliques et en réaffichant la matrice ainsi constituée 15x15 à chaque appui sur le clavier.<br>
 
 Exemple :
 
@@ -73,7 +73,8 @@ Exemple :
 ```` 
  -d DATAFILE, --datafile DATAFILE.TXT<br>
 ````
-Le bon découplage des modules "modele" et "controleur" est quand à lui implicite. Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données lui serait (à priori :grimacing:) facilement substituable.
+Le découplage des modules "modele" et "controleur" est quand à lui implicite :<br>
+Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données lui serait (à priori :grimacing:) facilement substituable.
 
 
 ## Architecture 
