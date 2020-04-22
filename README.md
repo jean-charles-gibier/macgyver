@@ -55,7 +55,7 @@ En fin de partie les items collecté et le garde anihilé apparaissent dans la b
 ![Rendu](https://raw.githubusercontent.com/jean-charles-gibier/macgyver/develop/docs/Exemple2.png)
 
 
-## Demonstration du respect du motif [MVC](https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur)
+## Du respect du motif [MVC](https://fr.wikipedia.org/wiki/Mod%C3%A8le-vue-contr%C3%B4leur)
 
 ````
 -i {Graphic,Text}, --interface {Graphic,Text}<br>
