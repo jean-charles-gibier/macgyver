@@ -26,11 +26,11 @@ class DalText(Dal):
         """display figure of item ... """
 
         switcher = {
-            constant.IMG_MCGYVER: "M",
             constant.IMG_GARDIEN: "G",
             constant.IMG_AIGUILLE: "A",
             constant.IMG_ETHER: "E",
-            constant.IMG_TUBE: "T"
+            constant.IMG_TUBE: "T",
+            constant.IMG_MCGYVER: "M"
         }
         # identify perso/item by img filename :-(
         letter = switcher.get(item.img_file, " ")
@@ -55,6 +55,7 @@ class DalText(Dal):
 
         def clear():
             return os.system((platform == "win32" and 'cls') or 'clear')
+
         clear()
 
     def draw_footer(self, fenetre):
@@ -206,8 +207,3 @@ class _GetchWindows:
         import msvcrt
         return msvcrt.getch()
 
-
-class FakeEvent:
-    def __init__(self, key_code):
-        self.type = KEYDOWN
-        self.key = key_code

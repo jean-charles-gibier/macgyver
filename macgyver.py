@@ -4,47 +4,16 @@
 """This script starts mc Guyver labyrinth
 parameter is :
   file_name (discribing map)."""
-import sys
-import random
+from core.gamemanager import DisplayManager
 from core.mapgame import MapGame
-from core.item.perso import Perso
-from core.item.item import Item
-from core import constant, utils
+from core import utils
+from core import constant
 from tkinter import messagebox, Tk
 import logging as lg
 
 logger = lg.getLogger(__name__)
 
 MODULE_DAL_PATH = 'core/dal'
-
-
-def dispatch_items(display, fenetre, map):
-    """" dispatch the different items in the play area taking care
-    that the layout does not block the player """
-    # set McGyver personage
-    mcGyver = Perso(map.xy_start_point[0], map.xy_start_point[1],
-                    constant.IMG_MCGYVER)
-    display.load_item(fenetre, mcGyver)
-    # how many boxes are accessible
-    nb_pos = len(map.possible_path)
-    p1 = random.choice(range(int(nb_pos / 2), nb_pos))
-    guard = Perso((map.possible_path[p1])[0], (map.possible_path[p1])[1],
-                  constant.IMG_GARDIEN)
-    display.load_item(fenetre, guard)
-    p2 = random.choice(range(4, p1))
-    needle = Item((map.possible_path[p2])[0], (map.possible_path[p2])[1],
-                  constant.IMG_AIGUILLE)
-    display.load_item(fenetre, needle)
-    p3 = random.choice(range(3, p2))
-    ether = Item((map.possible_path[p3])[0], (map.possible_path[p3])[1],
-                 constant.IMG_ETHER)
-    display.load_item(fenetre, ether)
-    p4 = random.choice(range(2, p3))
-    tube = Item((map.possible_path[p4])[0], (map.possible_path[p4])[1],
-                constant.IMG_TUBE)
-    display.load_item(fenetre, tube)
-
-    return mcGyver, guard, needle, ether, tube
 
 
 def main():
@@ -59,62 +28,50 @@ def main():
     lg.info('Display interface : %s', args.interface)
 
     # implementation Text or Graphic
-    # Pas trouvé d'autre solution pour definir le chemin des modules dynamiques
-    sys.path.append(MODULE_DAL_PATH)
-    class_name = "Dal"+interface_type
-    module_display = class_name.lower()
-    lg.info('Implementation : %s', module_display)
-    module = __import__(module_display)
-    class_ = getattr(module, class_name)
-    display = class_()
+    display = utils.build_display(MODULE_DAL_PATH, interface_type)
 
+    # get Pygame windows
     fenetre = display.init(map_game)
     lg.info('%s env set : %s', args.interface, map_game.path_name)
 
-    (mcGyver, guard, needle, ether, tube) =\
-        dispatch_items(display, fenetre, map_game)
-    lg.info('Dispatch items set')
+    # set display manager : intialize items and persos
+    game_manager = DisplayManager(display, fenetre, map_game)
 
-    # collected items
-    collected_items = []
+    # dispatch item and perso (mcGyver, guard, needle, ether, tube)
+    game_manager.dispatch_items()
+    lg.info('Dispatch items set')
 
     # main loop
     continuer = 1
 
     while continuer:
-        display.draw_map(fenetre, map_game.map_content)
-        display.draw_footer(fenetre)
-        display.draw_item(fenetre, guard)
-        display.draw_item(fenetre, needle)
-        display.draw_item(fenetre, ether)
-        display.draw_item(fenetre, tube)
-        display.draw_item(fenetre, mcGyver)
-        display.clock()
-        display.flip()
+
+        game_manager.draw()
 
         for event in display.event_get():
-            # pprint.pprint(event)
             # Boucle event
             if event is None:
                 continue
+
             if display.event_quit(event) is True:
                 continuer = 0
             elif display.event_keydown_escape(event) is True:
                 continuer = 0
             elif display.event_keydown_right(event) is True:
-                mcGyver.deplacer('droite', map_game.path_course)
+                game_manager.move_items(constant.ID_MCGYVER, 'droite')
             elif display.event_keydown_left(event) is True:
-                mcGyver.deplacer('gauche', map_game.path_course)
+                game_manager.move_items(constant.ID_MCGYVER, 'gauche')
             elif display.event_keydown_up(event) is True:
-                mcGyver.deplacer('haut', map_game.path_course)
+                game_manager.move_items(constant.ID_MCGYVER, 'haut')
             elif display.event_keydown_down(event) is True:
-                mcGyver.deplacer('bas', map_game.path_course)
+                game_manager.move_items(constant.ID_MCGYVER, 'bas')
 
             # check items
-            if mcGyver.compare_pos(guard):
+            if game_manager.compare_pos(constant.ID_MCGYVER,
+                                        constant.ID_GARDIEN):
                 lg.info('On rencontre le garde ')
-                if len(collected_items) == 3:
-                    guard.exclude(4)
+                if game_manager.is_completed():
+                    game_manager.exclude_item(constant.ID_GARDIEN, 4)
                     lg.info('Ok Garde endormi ')
                 else:
                     lg.info('You loose !')
@@ -122,33 +79,33 @@ def main():
                     messagebox.showinfo('Oups', 'You loose !')
                     continuer = 0
 
-            elif mcGyver.compare_pos(needle):
+            elif game_manager.compare_pos(constant.ID_MCGYVER,
+                                          constant.ID_AIGUILLE):
                 lg.info('On rencontre l\'aiguille ')
-                collected_items.append(needle)
-                needle.exclude(0)
+                game_manager.collect_item(constant.ID_AIGUILLE)
+                game_manager.exclude_item(constant.ID_AIGUILLE, 0)
 
-            elif mcGyver.compare_pos(ether):
-                collected_items.append(ether)
+            elif game_manager.compare_pos(constant.ID_MCGYVER,
+                                          constant.ID_ETHER):
                 lg.info('On rencontre la bouteille d\'ether ')
-                ether.exclude(1)
+                game_manager.collect_item(constant.ID_ETHER)
+                game_manager.exclude_item(constant.ID_ETHER, 1)
 
-            elif mcGyver.compare_pos(tube):
-                collected_items.append(tube)
+            elif game_manager.compare_pos(constant.ID_MCGYVER,
+                                          constant.ID_TUBE):
                 lg.info('On rencontre le tube ')
-                tube.exclude(2)
+                game_manager.collect_item(constant.ID_TUBE)
+                game_manager.exclude_item(constant.ID_TUBE, 2)
 
-            elif mcGyver.compare_pos((map_game.xy_end_point[0],
-                                      map_game.xy_end_point[1])):
-                if len(collected_items) == 3:
+            elif game_manager.is_exit(constant.ID_MCGYVER):
+                if game_manager.is_completed():
                     lg.info('You win !')
                     # on redessine une derniere fois la fenetre du jeu
-                    # pas trouvé de solution élégante => a étudiers
-                    display.draw_map(fenetre, map_game.map_content)
-                    display.draw_item(fenetre, mcGyver)
-                    display.flip()
+                    game_manager.draw()
                     Tk().wm_withdraw()
                     messagebox.showinfo('Congratulations', 'You win !')
                     continuer = 0
+
 
 if __name__ == "__main__":
     main()

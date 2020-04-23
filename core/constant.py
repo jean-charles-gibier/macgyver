@@ -22,3 +22,11 @@ IMG_GARDIEN = RESOURCE_PATH + "/Gardien.png"
 IMG_AIGUILLE = RESOURCE_PATH + "/aiguille2.png"
 IMG_ETHER = RESOURCE_PATH + "/ether2.png"
 IMG_TUBE = RESOURCE_PATH + "/tube_plastique2.png"
+
+# Z_MacGyver parce que tri alpha et que
+# MacGyver doit être affiché le dernier
+ID_MCGYVER = 'Z_MacGyver'
+ID_GARDIEN = 'Gardien'
+ID_AIGUILLE = 'Aiguille'
+ID_ETHER = 'Ether'
+ID_TUBE = 'Tube'

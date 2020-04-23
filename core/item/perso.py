@@ -8,7 +8,7 @@ class Perso(Item):
     def __init__(self, pos_x=0, pos_y=0, img_file=""):
         super().__init__(pos_x, pos_y, img_file)
 
-    def deplacer(self, direction, autorized_pos):
+    def move(self, direction, autorized_pos):
         """Methode permettant de déplacer le personnage"""
 
         # Déplacement vers la droite

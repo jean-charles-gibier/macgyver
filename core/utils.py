@@ -1,6 +1,8 @@
 import argparse
-from sys import stdout
 import logging as lg
+import sys
+from sys import (stdout, path)
+
 logger = lg.getLogger(__name__)
 
 
@@ -27,3 +29,15 @@ def set_logger():
 
     logger.addHandler(fh)
     logger.setLevel(lg.DEBUG)
+
+
+def build_display(module_dal_path, interface_type):
+    """generate and return a display class """
+    dal_prefix = "Dal"
+    sys.path.append(module_dal_path)
+    class_name = dal_prefix + interface_type
+    module_display = class_name.lower()
+    lg.info('Implementation : %s', module_display)
+    module = __import__(module_display)
+    class_ = getattr(module, class_name)
+    return  class_()
