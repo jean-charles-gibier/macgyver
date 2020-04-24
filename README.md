@@ -76,9 +76,9 @@ Le découplage des modules "modele" et "controleur" est quand à lui implicite :
 Le choix d'un fichier texte servant à mapper la configuration du jeu  démontre l'indépendance des données par rapport au fonctionnement du jeu. Une autre source de données lui serait (à priori :grimacing:) facilement substituable.
 
 
-## Architecture 
+## Hierarchie  
 
-L'architecture (ok c'est un grand mot) de ce projet est [définie ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/architecture.md) 
+La hierarchie de ce projet est [définie ICI](https://github.com/jean-charles-gibier/macgyver/blob/master/docs/architecture.md) 
 
 ## Demarche
 
