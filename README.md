@@ -9,7 +9,7 @@ sudo apt-get install python3-tk
 pip install -r requirements.txt
 python3 macgyver.py
 ````
-* note:  l' installation de Tk est petite particularité à améliorer :-(<br>
+\* note:  l' installation de Tk est une petite particularité à améliorer :-(<br>
 J'ai pris ce biais pour utiliser des popup toutes prêtes mais il vaudrait mieux les generer avec Pygame
  
 
