@@ -1,7 +1,7 @@
 # macgyver
 Cours python Openclassrooms 1ere mission
 
-# installation (*)
+## installation (*)
 
 ````
 # git pull <this repo>
@@ -13,19 +13,19 @@ python3 macgyver.py
 J'ai pris ce biais pour utiliser des popup toutes prêtes mais il vaudrait mieux les generer avec Pygame
  
 
-# description des fonctionalités
 ## usage
 ````
 usage: macgyver.py [-h] [-d DATAFILE]
 
 optional arguments:
-  -h, --help            show this help message and exit
+  -h, --help            show this help message and exit# description des fonctionalités
+
   -d DATAFILE, --datafile DATAFILE.TXT
                         file containing map of labyrinth
   -i {Graphic,Text}, --interface {Graphic,Text}
                         Display interface : 'text' or 'graphic'
 ````
-# fonctionalités
+# description des fonctionalités
 Les fonctionalités requises pour cet exercice sont [décrites ici](https://openclassrooms.com/fr/projects/156/assignment)
 
 Pour exploiter l'interface graphique pygame, le programme va lire un fichier texte (argument '--datafile') 
