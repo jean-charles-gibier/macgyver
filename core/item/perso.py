@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*- #
 from core import constant
 from core.item.item import Item
 
