@@ -1,9 +1,7 @@
 # macgyver
 Cours python Openclassrooms 1ere mission
 
-# installation
-note:  l' installation de Tk est petite particularité à améliorer :-(
-J'ai pris ce biais pour utiliser des popup toutes prêtes mais il vaudrait mieux les generer avec Pygame
+# installation (*)
 
 ````
 # git pull <this repo>
@@ -11,6 +9,9 @@ sudo apt-get install python3-tk
 pip install -r requirements.txt
 python3 macgyver.py
 ````
+* note:  l' installation de Tk est petite particularité à améliorer :-(<br>
+J'ai pris ce biais pour utiliser des popup toutes prêtes mais il vaudrait mieux les generer avec Pygame
+ 
 
 # description des fonctionalités
 ## usage
