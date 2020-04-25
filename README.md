@@ -1,6 +1,17 @@
 # macgyver
 Cours python Openclassrooms 1ere mission
 
+# installation
+note:  l' installation de Tk est petite particularité à améliorer :-(
+J'ai pris ce biais pour utiliser des popup toutes prêtes mais il vaudrait mieux les generer avec Pygame
+
+````
+# git pull <this repo>
+sudo apt-get install python3-tk
+pip install -r requirements.txt
+python3 macgyver.py
+````
+
 # description des fonctionalités
 ## usage
 ````
@@ -92,3 +103,4 @@ Sugestions pour une nouvelle version:
 - Ajouter animation des personages (gare  et Mc Gyver) 2 ou 3 sprites => 1 par rafraichissement en alternance 
 - Gérer les evenements clavier par listener
 - Afficher explicitement les cases "départ" et "arrivée" (nouvelle clzsse heritée de items => item non récupérable)
+- supprimer les popup TK pour faire de vraies popup pygame 
